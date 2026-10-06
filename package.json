@@ -1,6 +1,6 @@
 {
   "name": "runyth-fog-policy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "description": "Development and release tooling for the Runyth Fog Policy Foundry VTT module.",
