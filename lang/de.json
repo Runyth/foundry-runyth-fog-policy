@@ -6,71 +6,120 @@
     },
     "Settings": {
       "Enabled": {
-        "Name": "Strikte Nebelerkundungs-Richtlinie aktivieren",
-        "Hint": "Wenn aktiviert, muss bei verwalteten Weltszenen die Nebelerkundung deaktiviert sein."
+        "Name": "Strikte Nebelerkundungsrichtlinie aktivieren",
+        "Hint": "Wenn aktiviert, müssen verwaltete Weltszenen die Nebelerkundung deaktiviert haben."
       },
       "RepairOnReady": {
-        "Name": "Bestehende Szenen beim Laden der Welt reparieren",
-        "Hint": "Der aktive GM führt nach dem Weltstart eine idempotente Massenreparatur durch."
+        "Name": "Vorhandene Szenen beim Laden der Welt reparieren",
+        "Hint": "Der aktive SL führt nach dem Weltstart eine idempotente, gebündelte Reparatur durch."
       },
       "EnforceCreates": {
         "Name": "Bei neu erstellten und importierten Szenen erzwingen",
         "Hint": "Neue Weltszenen werden mit deaktivierter Nebelerkundung gespeichert, einschließlich aus Kompendien importierter Szenen."
       },
       "EnforceUpdates": {
-        "Name": "Reaktivierung der Nebelerkundung bei verwalteten Szenen verhindern",
-        "Hint": "Versuche, die Nebelerkundung bei einer verwalteten Szene zu aktivieren, werden vor dem Speichern korrigiert."
+        "Name": "Erneutes Aktivieren der Nebelerkundung verhindern",
+        "Hint": "Versuche, die Nebelerkundung für eine verwaltete Szene zu aktivieren, werden vor dem Speichern korrigiert."
       },
       "AllowExemptions": {
         "Name": "Ausnahmen pro Szene erlauben",
-        "Hint": "Erlaubt es, ausgewählte Weltszenen im Dashboard von der strikten Richtlinie auszunehmen."
+        "Hint": "Erlaubt dem Dashboard, ausgewählte Weltszenen von der strikten Richtlinie auszunehmen."
       },
       "NotifyAutomaticRepair": {
         "Name": "Nach automatischer Reparatur benachrichtigen",
-        "Hint": "Zeigt eine GM-Benachrichtigung an, wenn dieser Client als aktiver GM Szenen beim Start repariert."
+        "Hint": "Zeigt eine SL-Benachrichtigung, wenn dieser Client als aktiver SL beim Start Szenen repariert."
       },
       "Dashboard": {
         "Name": "Nebelerkundungs-Dashboard",
         "Label": "Nebelerkundungs-Dashboard öffnen",
-        "Hint": "Prüfen, reparieren, Ausnahmen verwalten und gespeicherte Nebelerkundungsdaten ausdrücklich löschen."
+        "Hint": "Szenen prüfen, filtern, gesammelt auswählen, reparieren, sichern, wiederherstellen, ausnehmen und gespeicherte Nebelerkundung löschen."
       }
     },
     "Dashboard": {
       "Title": "Runyth Fog Policy",
-      "PolicyEnabled": "Strikte Nebelerkundungs-Richtlinie ist aktiviert",
-      "PolicyDisabled": "Strikte Nebelerkundungs-Richtlinie ist deaktiviert",
-      "Intro": "Bei verwalteten Szenen bleibt die Nebelerkundung deaktiviert, damit Spieler nur ihre aktuelle Sicht behalten und keine dauerhaft erkundete Karte.",
-      "Actions": "Aktionen der Nebelerkundungs-Richtlinie",
-      "Total": "Szenen gesamt",
+      "PolicyEnabled": "Strikte Nebelerkundungsrichtlinie ist aktiviert",
+      "PolicyDisabled": "Strikte Nebelerkundungsrichtlinie ist deaktiviert",
+      "Intro": "Verwaltete Szenen behalten die Nebelerkundung deaktiviert, sodass Spieler nur die aktuelle Sicht statt einer dauerhaften Erinnerungskarte behalten.",
+      "Actions": "Aktionen der Nebelerkundungsrichtlinie",
+      "Total": "Gesamt",
       "Managed": "Verwaltet",
       "Compliant": "Konform",
       "NonCompliant": "Reparatur nötig",
       "Exempt": "Ausgenommen",
+      "Visible": "Gefiltert",
+      "Selected": "Ausgewählt",
       "Audit": "Prüfung aktualisieren",
-      "Repair": "Alle verwalteten Szenen reparieren",
-      "Purge": "Gespeicherte Erkundung löschen",
-      "PurgeWarning": "Das Löschen der gespeicherten Erkundung entfernt FogExploration-Datensätze aller Benutzer für verwaltete Szenen. Dies geschieht absichtlich nicht automatisch und kann ohne Backup nicht rückgängig gemacht werden.",
+      "RepairSelected": "Ausgewählte reparieren",
+      "RepairAll": "Alle verwalteten reparieren",
+      "ExemptSelected": "Ausgewählte ausnehmen",
+      "ManageSelected": "Ausgewählte verwalten",
+      "PurgeSelected": "Ausgewählte bereinigen",
+      "PurgeWarning": "Das Bereinigen gespeicherter Erkundung löscht FogExploration-Datensätze für die ausgewählten Szenen und Benutzer dauerhaft. Exportiere vorher eine Sicherung, falls der Richtlinienzustand wiederhergestellt werden können soll.",
       "PurgeConfirmTitle": "Gespeicherte Nebelerkundung löschen?",
-      "PurgeConfirmBody": "Dadurch werden gespeicherte FogExploration-Datensätze aller Benutzer für alle verwalteten Szenen dauerhaft gelöscht. Fortfahren?",
+      "PurgeSelectedConfirmBody": "Dadurch werden gespeicherte FogExploration-Datensätze aller Benutzer für {count} ausgewählte Szene(n) dauerhaft gelöscht. Fortfahren?",
       "Scene": "Szene",
+      "SceneList": "Gefilterte Szenenliste",
       "FogExploration": "Nebelerkundung",
       "StatusLabel": "Richtlinienstatus",
       "Exemption": "Ausnahme",
       "AddExemption": "Ausnahme hinzufügen",
       "RemoveExemption": "Ausnahme entfernen",
-      "ExemptionsDisabled": "Global deaktiviert",
-      "NoScenes": "Es existieren keine Weltszenen.",
+      "SelectScene": "Szene {name} auswählen",
+      "Unfoldered": "Ohne Ordner",
+      "Filters": "Szenenfilter",
+      "Search": "Suche",
+      "SearchPlaceholder": "Szenen durchsuchen…",
+      "SearchHelp": "Alle Begriffe müssen passen. Anführungszeichen werden unterstützt. Feldfilter: name:, folder:, status:, fog:, exempt:, id:.",
+      "ResetFilters": "Alle Filter zurücksetzen",
+      "SelectedOnly": "Nur ausgewählte",
+      "SceneFolders": "Szenenordner",
+      "FolderSearchPlaceholder": "Ordnerhierarchie filtern…",
+      "IncludeDescendants": "Unterordner einschließen",
+      "Selection": "Sammelauswahl",
+      "SelectFiltered": "Alle gefilterten auswählen",
+      "InvertFiltered": "Gefilterte Auswahl umkehren",
+      "ClearSelection": "Auswahl löschen",
+      "BackupAndTransfer": "Sicherung, Import/Export und Auswahlübertragung",
+      "ExportOptions": "Exportoptionen",
+      "TargetSelected": "Ausgewählte Szenen",
+      "TargetFiltered": "Alle gefilterten Szenen",
+      "IncludeGlobalSettings": "Weltrichtlinien-Einstellungen in Sicherung einschließen",
+      "ExportBackup": "Sicherung exportieren",
+      "ExportSelection": "Auswahl exportieren",
+      "ImportBackupOptions": "Optionen für Sicherungsimport",
+      "RestoreExemptions": "Szenenausnahmen wiederherstellen",
+      "RestoreFogState": "Nebelerkundungsstatus wiederherstellen, soweit die Richtlinie dies zulässt",
+      "RestoreGlobalSettings": "Enthaltene Weltrichtlinien-Einstellungen wiederherstellen",
+      "CreateSafetyBackup": "Vor dem Import eine Sicherheitssicherung herunterladen",
+      "SelectImportedScenes": "Passende Szenen nach dem Import auswählen",
+      "ImportBackup": "Sicherung importieren",
+      "ImportBackupConfirmTitle": "Fog-Policy-Sicherung wiederherstellen?",
+      "ImportBackupConfirmBody": "Passend: {matched}. Nicht gefunden: {unmatched}. Mehrdeutig: {ambiguous}. Nur passende Szenen können geändert werden. Mit den gewählten Importoptionen fortfahren?",
+      "SelectionTransfer": "Auswahlübertragung",
+      "ReplaceSelection": "Aktuelle Auswahl ersetzen statt ergänzen",
+      "ImportSelection": "Auswahl importieren",
+      "TransferHelp": "Auswahldateien enthalten nur Szenenidentität und Ordnerpfad; sie ändern keine Szeneneinstellungen.",
+      "Working": "{operation}…",
+      "Completed": "{operation} abgeschlossen.",
+      "Failed": "{operation} fehlgeschlagen. Siehe Benachrichtigung und Konsolendetails.",
+      "Ready": "Bereit.",
       "Status": {
         "compliant": "Konform",
         "nonCompliant": "Reparatur nötig",
         "exempt": "Ausgenommen"
-      }
+      },
+      "Cancelled": "{operation} abgebrochen."
     },
     "Notifications": {
-      "Repaired": "Runyth Fog Policy hat die Nebelerkundung bei {count} Szene(n) deaktiviert.",
-      "AutomaticRepair": "Runyth Fog Policy hat automatisch {count} Szene(n) repariert.",
-      "AutomaticRepairFailed": "Runyth Fog Policy konnte die automatische Szenenreparatur nicht abschließen. Browserkonsole prüfen.",
-      "Purged": "{count} gespeicherte FogExploration-Datensätze in {scenes} Szene(n) gelöscht."
+      "Repaired": "Runyth Fog Policy hat die Nebelerkundung für {count} Szene(n) deaktiviert.",
+      "AutomaticRepair": "Runyth Fog Policy hat {count} Szene(n) automatisch repariert.",
+      "AutomaticRepairFailed": "Runyth Fog Policy konnte die automatische Szenenreparatur nicht abschließen. Prüfe die Browserkonsole auf RFP-Fehlerdetails.",
+      "Purged": "{count} gespeicherte FogExploration-Datensätze in {scenes} Szene(n) gelöscht.",
+      "PurgePartial": "Die Bereinigung hat {deleted} Datensatz/Datensätze gelöscht, aber {failures} Vorgang/Vorgänge konnten nicht abgeschlossen werden. Prüfe die Konsole, bevor die Bereinigung als vollständig betrachtet wird.",
+      "PartialFailure": "{operation} wurde nur teilweise abgeschlossen; {count} Szene(n) konnten nicht aktualisiert werden. Prüfe die Konsole auf isolierte Fehler.",
+      "RestoreConflicts": "{count} Nebelerkundungswert(e) aus der Sicherung konnten nicht wiederhergestellt werden, weil die aktive strikte Richtlinie sie sofort verbieten würde. Diese Szenen bleiben richtlinienkonform.",
+      "RestoreFailed": "{count} Szenenaktualisierung(en) aus der Sicherung schlugen nach Fehlerisolierung fehl. Prüfe die Konsole für Details.",
+      "SelectionImported": "Auswahlimport: {matched} passende Szene(n), {unmatched} nicht gefunden, {ambiguous} mehrdeutig."
     }
   }
 }
