@@ -1,0 +1,76 @@
+{
+  "RUNYTH_FOG_POLICY": {
+    "Common": {
+      "Enabled": "Enabled",
+      "Disabled": "Disabled"
+    },
+    "Settings": {
+      "Enabled": {
+        "Name": "Enable strict Fog Exploration policy",
+        "Hint": "When enabled, managed world Scenes must have Fog Exploration disabled."
+      },
+      "RepairOnReady": {
+        "Name": "Repair existing Scenes when the world loads",
+        "Hint": "The active GM performs one idempotent bulk repair after world startup."
+      },
+      "EnforceCreates": {
+        "Name": "Enforce on newly created and imported Scenes",
+        "Hint": "New world Scenes are persisted with Fog Exploration disabled, including Scenes imported from compendiums."
+      },
+      "EnforceUpdates": {
+        "Name": "Prevent managed Scenes from re-enabling Fog Exploration",
+        "Hint": "Attempts to enable Fog Exploration on a managed Scene are corrected before the update is stored."
+      },
+      "AllowExemptions": {
+        "Name": "Allow per-Scene exemptions",
+        "Hint": "Allows the dashboard to exempt selected world Scenes from the strict policy."
+      },
+      "NotifyAutomaticRepair": {
+        "Name": "Notify me after automatic repair",
+        "Hint": "Shows a GM notification when this client, as active GM, repairs Scenes at startup."
+      },
+      "Dashboard": {
+        "Name": "Fog Policy Dashboard",
+        "Label": "Open Fog Policy Dashboard",
+        "Hint": "Audit, repair, exempt, and explicitly purge stored Fog Exploration data."
+      }
+    },
+    "Dashboard": {
+      "Title": "Runyth Fog Policy",
+      "PolicyEnabled": "Strict Fog Exploration policy is enabled",
+      "PolicyDisabled": "Strict Fog Exploration policy is disabled",
+      "Intro": "Managed Scenes are expected to keep Fog Exploration disabled so players only retain current visibility instead of persistent explored-map memory.",
+      "Actions": "Fog policy actions",
+      "Total": "Total Scenes",
+      "Managed": "Managed",
+      "Compliant": "Compliant",
+      "NonCompliant": "Needs repair",
+      "Exempt": "Exempt",
+      "Audit": "Refresh audit",
+      "Repair": "Repair all managed Scenes",
+      "Purge": "Purge stored exploration",
+      "PurgeWarning": "Purging stored exploration deletes saved FogExploration records for every user on managed Scenes. This is intentionally not automatic and cannot be undone without a backup.",
+      "PurgeConfirmTitle": "Purge stored Fog Exploration?",
+      "PurgeConfirmBody": "This permanently deletes stored Fog Exploration records for all users on every managed Scene. Continue?",
+      "Scene": "Scene",
+      "FogExploration": "Fog Exploration",
+      "StatusLabel": "Policy status",
+      "Exemption": "Exemption",
+      "AddExemption": "Add exemption",
+      "RemoveExemption": "Remove exemption",
+      "ExemptionsDisabled": "Disabled globally",
+      "NoScenes": "No world Scenes exist.",
+      "Status": {
+        "compliant": "Compliant",
+        "nonCompliant": "Needs repair",
+        "exempt": "Exempt"
+      }
+    },
+    "Notifications": {
+      "Repaired": "Runyth Fog Policy disabled Fog Exploration on {count} Scene(s).",
+      "AutomaticRepair": "Runyth Fog Policy automatically repaired {count} Scene(s).",
+      "AutomaticRepairFailed": "Runyth Fog Policy could not complete its automatic Scene repair. Check the browser console.",
+      "Purged": "Deleted {count} stored Fog Exploration record(s) across {scenes} Scene(s)."
+    }
+  }
+}

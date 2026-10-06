@@ -1,0 +1,76 @@
+{
+  "RUNYTH_FOG_POLICY": {
+    "Common": {
+      "Enabled": "Aktiviert",
+      "Disabled": "Deaktiviert"
+    },
+    "Settings": {
+      "Enabled": {
+        "Name": "Strikte Nebelerkundungs-Richtlinie aktivieren",
+        "Hint": "Wenn aktiviert, muss bei verwalteten Weltszenen die Nebelerkundung deaktiviert sein."
+      },
+      "RepairOnReady": {
+        "Name": "Bestehende Szenen beim Laden der Welt reparieren",
+        "Hint": "Der aktive GM führt nach dem Weltstart eine idempotente Massenreparatur durch."
+      },
+      "EnforceCreates": {
+        "Name": "Bei neu erstellten und importierten Szenen erzwingen",
+        "Hint": "Neue Weltszenen werden mit deaktivierter Nebelerkundung gespeichert, einschließlich aus Kompendien importierter Szenen."
+      },
+      "EnforceUpdates": {
+        "Name": "Reaktivierung der Nebelerkundung bei verwalteten Szenen verhindern",
+        "Hint": "Versuche, die Nebelerkundung bei einer verwalteten Szene zu aktivieren, werden vor dem Speichern korrigiert."
+      },
+      "AllowExemptions": {
+        "Name": "Ausnahmen pro Szene erlauben",
+        "Hint": "Erlaubt es, ausgewählte Weltszenen im Dashboard von der strikten Richtlinie auszunehmen."
+      },
+      "NotifyAutomaticRepair": {
+        "Name": "Nach automatischer Reparatur benachrichtigen",
+        "Hint": "Zeigt eine GM-Benachrichtigung an, wenn dieser Client als aktiver GM Szenen beim Start repariert."
+      },
+      "Dashboard": {
+        "Name": "Nebelerkundungs-Dashboard",
+        "Label": "Nebelerkundungs-Dashboard öffnen",
+        "Hint": "Prüfen, reparieren, Ausnahmen verwalten und gespeicherte Nebelerkundungsdaten ausdrücklich löschen."
+      }
+    },
+    "Dashboard": {
+      "Title": "Runyth Fog Policy",
+      "PolicyEnabled": "Strikte Nebelerkundungs-Richtlinie ist aktiviert",
+      "PolicyDisabled": "Strikte Nebelerkundungs-Richtlinie ist deaktiviert",
+      "Intro": "Bei verwalteten Szenen bleibt die Nebelerkundung deaktiviert, damit Spieler nur ihre aktuelle Sicht behalten und keine dauerhaft erkundete Karte.",
+      "Actions": "Aktionen der Nebelerkundungs-Richtlinie",
+      "Total": "Szenen gesamt",
+      "Managed": "Verwaltet",
+      "Compliant": "Konform",
+      "NonCompliant": "Reparatur nötig",
+      "Exempt": "Ausgenommen",
+      "Audit": "Prüfung aktualisieren",
+      "Repair": "Alle verwalteten Szenen reparieren",
+      "Purge": "Gespeicherte Erkundung löschen",
+      "PurgeWarning": "Das Löschen der gespeicherten Erkundung entfernt FogExploration-Datensätze aller Benutzer für verwaltete Szenen. Dies geschieht absichtlich nicht automatisch und kann ohne Backup nicht rückgängig gemacht werden.",
+      "PurgeConfirmTitle": "Gespeicherte Nebelerkundung löschen?",
+      "PurgeConfirmBody": "Dadurch werden gespeicherte FogExploration-Datensätze aller Benutzer für alle verwalteten Szenen dauerhaft gelöscht. Fortfahren?",
+      "Scene": "Szene",
+      "FogExploration": "Nebelerkundung",
+      "StatusLabel": "Richtlinienstatus",
+      "Exemption": "Ausnahme",
+      "AddExemption": "Ausnahme hinzufügen",
+      "RemoveExemption": "Ausnahme entfernen",
+      "ExemptionsDisabled": "Global deaktiviert",
+      "NoScenes": "Es existieren keine Weltszenen.",
+      "Status": {
+        "compliant": "Konform",
+        "nonCompliant": "Reparatur nötig",
+        "exempt": "Ausgenommen"
+      }
+    },
+    "Notifications": {
+      "Repaired": "Runyth Fog Policy hat die Nebelerkundung bei {count} Szene(n) deaktiviert.",
+      "AutomaticRepair": "Runyth Fog Policy hat automatisch {count} Szene(n) repariert.",
+      "AutomaticRepairFailed": "Runyth Fog Policy konnte die automatische Szenenreparatur nicht abschließen. Browserkonsole prüfen.",
+      "Purged": "{count} gespeicherte FogExploration-Datensätze in {scenes} Szene(n) gelöscht."
+    }
+  }
+}
