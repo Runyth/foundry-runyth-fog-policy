@@ -104,7 +104,12 @@ def main() -> int:
       return False
     if parts[0] in {"dist", "node_modules"}:
       return True
-    if rel.as_posix() in {".git/index", ".git/index.lock", ".git/packed-refs.lock"}:
+    if rel.as_posix() in {
+      ".git/index",
+      ".git/index.lock",
+      ".git/packed-refs.lock",
+      ".git/config"
+    }:
       return True
     return any(part in {"__pycache__"} for part in parts) or rel.suffix in {".pyc"}
 
@@ -130,6 +135,25 @@ def main() -> int:
         zip_info("runyth-fog-policy/.git/index"),
         canonical_index.read_bytes(),
       )
+
+    # Keep the extracted source repository clean even when a ZIP extractor does
+    # not preserve Unix executable bits (for example Python's zipfile or many
+    # Windows extractors). Git content is unchanged; only file-mode probing is
+    # disabled in the portable source archive.
+    canonical_git_config = (
+      "[core]\n"
+      "\trepositoryformatversion = 0\n"
+      "\tfilemode = false\n"
+      "\tbare = false\n"
+      "\tlogallrefupdates = true\n"
+      "[user]\n"
+      "\tname = Runyth Release Bot\n"
+      "\temail = runyth@example.invalid\n"
+    )
+    zf.writestr(
+      zip_info("runyth-fog-policy/.git/config"),
+      canonical_git_config.encode("utf-8"),
+    )
 
   with zipfile.ZipFile(docs_zip, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
     add_selected(

@@ -75,6 +75,9 @@ def main() -> int:
   with zipfile.ZipFile(source_zip) as zf:
     names = set(zf.namelist())
     assert_true("runyth-fog-policy/.git/HEAD" in names, "Source ZIP lacks .git/HEAD.")
+    assert_true("runyth-fog-policy/.git/config" in names, "Source ZIP lacks portable Git config.")
+    git_config = zf.read("runyth-fog-policy/.git/config").decode("utf-8")
+    assert_true("filemode = false" in git_config, "Source ZIP Git config must ignore extractor file-mode loss.")
     assert_true(
       any(name.startswith("runyth-fog-policy/.git/objects/") and not name.endswith("/") for name in names),
       "Source ZIP lacks Git objects/history."
