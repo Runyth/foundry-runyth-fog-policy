@@ -1,6 +1,6 @@
 {
   "module": "runyth-fog-policy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "validationDate": "2026-10-06",
   "toolchain": {
     "node": "22.16.0",
@@ -14,15 +14,23 @@
     "localizationParity": "passed",
     "relativeImports": "passed",
     "manifest": "passed",
-    "unitTests": {
+    "tests": {
       "result": "passed",
-      "passed": 13,
+      "passed": 34,
       "failed": 0
+    },
+    "scaleTest": {
+      "result": "passed",
+      "scenes": 10000,
+      "folders": 500,
+      "recordedMillisecondsApprox": 45
     },
     "build": "passed",
     "archives": "passed",
     "sourceGitHistory": "passed",
     "docsExcludeModuleJson": "passed",
+    "gitFsck": "passed",
+    "freshSourceRebuild": "passed",
     "determinism": "passed",
     "dependencyAudit": {
       "result": "passed",
