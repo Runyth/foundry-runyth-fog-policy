@@ -1,0 +1,14 @@
+{
+  "module": "runyth-fog-policy",
+  "version": "1.0.0",
+  "automated": {
+    "syntax": "pending",
+    "json": "pending",
+    "localizationParity": "pending",
+    "unitTests": "pending",
+    "build": "pending",
+    "archives": "pending",
+    "determinism": "pending"
+  },
+  "liveFoundryV13": "not-performed"
+}
