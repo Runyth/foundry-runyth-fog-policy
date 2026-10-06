@@ -4,7 +4,9 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import subprocess
 import sys
+import tempfile
 import zipfile
 from pathlib import Path
 
@@ -102,12 +104,32 @@ def main() -> int:
       return False
     if parts[0] in {"dist", "node_modules"}:
       return True
-    if rel.as_posix() in {".git/index.lock", ".git/packed-refs.lock"}:
+    if rel.as_posix() in {".git/index", ".git/index.lock", ".git/packed-refs.lock"}:
       return True
     return any(part in {"__pycache__"} for part in parts) or rel.suffix in {".pyc"}
 
   with zipfile.ZipFile(source_zip, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
     add_tree(zf, root, "runyth-fog-policy", exclude=source_exclude)
+
+    # Git rewrites index stat metadata when a repository is extracted or inspected.
+    # Generate an index solely from HEAD so the source archive remains reproducible
+    # while still extracting as a complete, clean Git working repository.
+    with tempfile.TemporaryDirectory(prefix="runyth-fog-policy-index-") as temp_dir:
+      canonical_index = Path(temp_dir) / "index"
+      environment = os.environ.copy()
+      environment["GIT_INDEX_FILE"] = str(canonical_index)
+      subprocess.run(
+        ["git", "read-tree", "HEAD"],
+        cwd=root,
+        env=environment,
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+      )
+      zf.writestr(
+        zip_info("runyth-fog-policy/.git/index"),
+        canonical_index.read_bytes(),
+      )
 
   with zipfile.ZipFile(docs_zip, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
     add_selected(

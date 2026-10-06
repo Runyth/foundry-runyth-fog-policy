@@ -44,7 +44,7 @@ Contains README/changelog/license plus the `docs/` tree. It intentionally contai
 
 ## Determinism
 
-The packaging script uses sorted file order and fixed ZIP entry timestamps/permissions. Running packaging twice without changing the repository should produce byte-identical archives.
+The packaging script uses sorted file order, fixed ZIP entry timestamps/permissions, and a canonical Git index generated from `HEAD`. Running packaging twice without changing the repository—including after extracting the source ZIP—should produce byte-identical archives.
 
 ## Tagging
 
