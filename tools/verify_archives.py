@@ -50,6 +50,19 @@ def main() -> int:
     for language in packed_manifest.get("languages", []):
       path = language["path"]
       assert_true(f"runyth-fog-policy/{path}" in names, f"Missing packed language file: {path}")
+    for path in (
+      "scripts/main.js",
+      "scripts/policy.js",
+      "scripts/dashboard.js",
+      "templates/dashboard.hbs",
+      "styles/runyth-fog-policy.css",
+      "lang/en.json",
+      "lang/de.json",
+      "README.md",
+      "CHANGELOG.md",
+      "LICENSE",
+    ):
+      assert_true(f"runyth-fog-policy/{path}" in names, f"Missing runtime file: {path}")
 
   with zipfile.ZipFile(source_zip) as zf:
     names = set(zf.namelist())

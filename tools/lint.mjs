@@ -35,6 +35,13 @@ for (const file of jsFiles) {
 const runtimeJsFiles = jsFiles.filter((file) => relative(root, file).startsWith("scripts/"));
 for (const file of runtimeJsFiles) {
   const source = readFileSync(file, "utf8");
+
+  for (const match of source.matchAll(/(?:from\s+|import\s*)["'](\.[^"']+)["']/g)) {
+    const imported = resolve(file, "..", match[1]);
+    if (!existsSync(imported)) {
+      throw new Error(`Missing relative import ${match[1]} referenced by ${relative(root, file)}`);
+    }
+  }
   if (/\bFormApplication\b/.test(source)) {
     throw new Error(`Deprecated FormApplication reference found in ${relative(root, file)}`);
   }
