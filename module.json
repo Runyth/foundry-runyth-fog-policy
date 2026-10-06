@@ -1,0 +1,35 @@
+{
+  "id": "runyth-fog-policy",
+  "title": "Runyth Fog Policy",
+  "description": "World-level Fog of War policy enforcement for Foundry VTT. Disables persistent Fog Exploration on managed Scenes, repairs existing Scenes, enforces future/imported Scenes, and provides explicit stored-fog cleanup.",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Runyth"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13",
+    "maximum": "13"
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/runyth-fog-policy.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    }
+  ],
+  "license": "LICENSE"
+}

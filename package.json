@@ -1,0 +1,19 @@
+{
+  "name": "runyth-fog-policy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Development and release tooling for the Runyth Fog Policy Foundry VTT module.",
+  "scripts": {
+    "lint": "node tools/lint.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "build": "node tools/build.mjs",
+    "package": "node tools/package.mjs",
+    "release:verify": "node tools/verify-release.mjs",
+    "check": "npm run lint && npm test && npm run build && npm run package && npm run release:verify"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
