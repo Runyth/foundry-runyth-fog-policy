@@ -6,98 +6,113 @@ The API is exposed at:
 game.modules.get("runyth-fog-policy").api
 ```
 
-All mutating operations require a GM.
+All mutating operations require a GM or Assistant GM.
 
 ## `version`
 
-String containing the API/module version.
+String containing the module/API version.
 
-## `audit()`
+## `audit(options?)`
 
 Returns the current world-Scene audit without modifying data.
 
-Result shape:
-
 ```text
-{
-  total,
-  managed,
-  exempt,
-  compliant,
-  nonCompliant,
-  rows: [
-    {
-      id,
-      name,
-      exempt,
-      managed,
-      exploration,
-      compliant,
-      status
-    }
-  ]
-}
+api.audit()
+api.audit({ sceneIds: [sceneIdA, sceneIdB] })
 ```
+
+Result includes `total`, `managed`, `exempt`, `compliant`, `nonCompliant`, and detailed `rows`.
 
 ## `repair(options?)`
 
-Equivalent to the dashboard's bulk repair operation.
+Repairs all managed Scenes or a supplied Scene subset.
 
 ```text
 await api.repair({ notify: false });
+await api.repair({ sceneIds: [sceneIdA, sceneIdB] });
 ```
 
-Returns:
+Bulk writes are bounded and isolate failed Scene updates. Result shape:
 
 ```text
-{ updated, reason }
+{
+  updated,
+  failed,
+  missing,
+  reason
+}
 ```
-
-## `purgeStoredExploration(options?)`
-
-Permanently deletes discovered `FogExploration` documents for managed Scenes.
-
-```text
-await api.purgeStoredExploration();
-```
-
-Optional:
-
-```text
-await api.purgeStoredExploration({ includeExempt: true });
-```
-
-Returns:
-
-```text
-{ deleted, scenes }
-```
-
-This is destructive and is not automatically invoked by the module.
 
 ## `setSceneExempt(sceneId, exempt)`
 
-Sets or removes the effective exemption flag.
+Updates one Scene exemption.
 
 ```text
 await api.setSceneExempt(scene.id, true);
-await api.setSceneExempt(scene.id, false);
 ```
 
-Removing an exemption immediately repairs the Scene if necessary and if the policy is enabled.
+## `setScenesExempt(sceneIds, exempt)`
+
+Bulk exemption operation.
+
+```text
+await api.setScenesExempt([sceneA.id, sceneB.id], false);
+```
+
+Result includes `updated`, `failed`, `missing`, and the requested `exempt` value.
+
+## `purgeStoredExploration(options?)`
+
+Permanently deletes discovered `FogExploration` documents.
+
+```text
+await api.purgeStoredExploration();
+await api.purgeStoredExploration({
+  sceneIds: [sceneA.id, sceneB.id],
+  includeExempt: true
+});
+```
+
+Result:
+
+```text
+{
+  deleted,
+  failedDeletes,
+  discoveryFailures,
+  resetFailures,
+  scenes,
+  missing
+}
+```
+
+This operation is destructive and is never invoked automatically.
+
+## `restoreSceneStates(matches, options?)`
+
+Low-level integration method used by backup restore. `matches` must contain imported/current Scene pairs produced by a trusted integration.
+
+```text
+await api.restoreSceneStates(matches, {
+  restoreExemptions: true,
+  restoreFog: true
+});
+```
+
+The method never bypasses active policy enforcement. A requested `fog.exploration = true` that would immediately violate the current strict policy is recorded as a conflict and left disabled.
 
 ## `isSceneExempt(scene)`
 
-Returns the stored namespaced exemption flag. This reports the flag itself; the global **Allow per-Scene exemptions** setting determines whether it is currently honored.
+Returns the stored namespaced exemption flag. The global **Allow per-Scene exemptions** setting determines whether that flag is currently honored.
 
 ## `openDashboard()`
 
 Opens the GM dashboard.
 
-```text
-api.openDashboard();
-```
+## Error behavior
+
+Operational failures use explicit `RFP-*` error codes where the module can classify the failure. Bulk APIs return partial-failure counts and log isolated failures rather than converting every partial result into an all-or-nothing exception.
 
 ## Stability
 
-The public API is versioned with the module. Methods listed here are intended for integrations; files and non-exported functions remain implementation details.
+Methods documented here are the supported integration surface for v1.0.1. Internal files and non-exported helpers remain implementation details.

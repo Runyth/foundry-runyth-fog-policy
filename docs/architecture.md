@@ -2,79 +2,100 @@
 
 ## Goals
 
-Runyth Fog Policy turns a per-Scene Foundry configuration into a reliable world-level policy without modifying Foundry core or storing state in the module installation directory.
+Runyth Fog Policy turns a per-Scene Foundry configuration into a resilient world policy while remaining system-agnostic, non-invasive, and scalable to large Scene libraries.
 
 ## Components
 
 | Component | Responsibility |
 | --- | --- |
-| `scripts/main.js` | Lifecycle hooks, API exposure, startup repair |
-| `scripts/settings.js` | World/client settings registration and policy-setting reads |
-| `scripts/policy-core.js` | Pure policy decisions and batch-update construction |
-| `scripts/policy.js` | Foundry-facing persistence, cleanup, and GM operations |
-| `scripts/dashboard.js` | GM-only ApplicationV2 dashboard and restricted settings-menu registration |
-| `templates/dashboard.hbs` | Dashboard markup |
-| `styles/runyth-fog-policy.css` | Dashboard styles |
-| `lang/*.json` | Localization |
+| `scripts/main.js` | Lifecycle hooks, API exposure, active-GM startup repair |
+| `scripts/settings.js` | World/client settings |
+| `scripts/policy-core.js` | Pure policy decisions |
+| `scripts/policy.js` | Foundry document persistence, resilient batch writes, purge, restore |
+| `scripts/core/batch-core.js` | Bounded concurrency and split-on-failure batch isolation |
+| `scripts/core/filter-core.js` | Query normalization, structured search, cached filtering |
+| `scripts/core/scene-index-core.js` | Hierarchical folder index and cached Scene records |
+| `scripts/core/backup-core.js` | Backup/selection schemas, validation, cross-world matching |
+| `scripts/errors.js` | Classified operational errors and GM-facing reporting |
+| `scripts/services/backup-service.js` | Backup/selection import-export orchestration |
+| `scripts/services/file-service.js` | Bounded JSON file reading and downloads |
+| `scripts/ui/virtual-list.js` | Dependency-free fixed-row DOM virtualization |
+| `scripts/dashboard.js` | GM-only ApplicationV2 bulk-management dashboard |
+| `templates/dashboard.hbs` | Static dashboard shell only; large rows are virtualized |
+| `styles/runyth-fog-policy.css` | Bounded-layout, animation-free dashboard styling |
 
 ## Enforcement flow
 
 ### Existing world Scenes
 
-On `ready`, only the designated active GM performs startup repair. This prevents duplicate database operations when multiple GMs or assistants are connected.
-
-The repair computes all non-compliant managed Scenes, then performs one `Scene.updateDocuments` batch with `fog.exploration = false`.
+At `ready`, only Foundry's active GM performs automatic repair. Non-compliant updates are processed in batches of 100. A failed batch is recursively split until individual failing updates are isolated, allowing unrelated valid Scenes to continue.
 
 ### New/imported world Scenes
 
-`preCreateScene` runs only on the initiating client. The pending Scene document is modified with `updateSource`, the supported Foundry mechanism for changing pending document data before creation.
-
-Compendium Scene documents are ignored. A compendium Scene imported into the World is a new world Scene and is therefore enforced.
+`preCreateScene` modifies the pending Scene with `updateSource({"fog.exploration": false})` before persistence. Compendium Scene documents themselves are not modified; imported world copies are subject to the world policy.
 
 ### Scene updates
 
-`preUpdateScene` inspects attempts to set `fog.exploration = true`. If the Scene will remain managed after the pending change, the requested value is changed to `false` before persistence.
+`preUpdateScene` intercepts attempts to enable exploration on managed Scenes. Module-originated updates are marked with `runythFogPolicy` and ignored by the defensive post-update hook to avoid redundant work.
 
-`createScene` and `updateScene` also invoke a lightweight active-GM repair check. These post-operation hooks are defensive fallbacks and normally perform no write because the pre-operation enforcement already produced a compliant document.
+`createScene`/`updateScene` retain an active-GM defensive repair path for updates that bypassed the initiating client's pre-hook.
 
-## Exemptions
+## Large-world dashboard architecture
 
-Exemptions are stored on the Scene as:
+Foundry already holds world Scene documents client-side, so the module does not attempt to lazy-load Scene documents from the server. Instead it minimizes **derived work and DOM work**:
+
+1. Scene and folder metadata are normalized once per dashboard refresh.
+2. Hierarchical folder paths and descendant sets are cached.
+3. Search operates against normalized cached strings.
+4. Search input is debounced.
+5. Scene and folder lists are fixed-row virtualized.
+6. Only visible rows plus overscan are rendered.
+7. Summary counters are cached; selecting one Scene does not rescan all Scenes.
+8. No list-row animation or transition is used.
+
+This is the appropriate form of lazy rendering for Foundry's already-materialized World collections.
+
+## Search/filter model
+
+Free-text terms are combined with logical AND. Quoted phrases are supported. Structured fields are:
 
 ```text
-flags.runyth-fog-policy.exempt = true
+name:
+folder:
+status:
+fog:
+exempt:
+id:
 ```
 
-This is world data, survives module updates/reinstalls, and follows the Scene during normal Foundry export/import workflows.
+Folder filtering uses a separately searchable hierarchical list. Selecting a folder may optionally include its descendants.
 
-When the global **Allow per-Scene exemptions** setting is off, exemption flags are ignored without deleting them.
+## Backup model
 
-## Stored Fog Exploration cleanup
+Two JSON schemas are supported:
 
-Saved map memory lives in `FogExploration` world documents keyed by Scene and User. Cleanup is intentionally separate from policy enforcement because deletion is destructive.
+- `runyth-fog-policy-backup` — policy/configuration state;
+- `runyth-fog-policy-selection` — identity-only selection transfer.
 
-The purge workflow:
+Same-world imports use Scene IDs. Cross-world imports do not trust foreign IDs and instead require a unique Scene-name + hierarchical-folder-path match.
 
-1. enumerates managed Scenes and World users;
-2. loads FogExploration documents using the public `FogExploration.load({scene, user})` API with bounded concurrency;
-3. combines those results with already-loaded FogExploration collection entries;
-4. deletes discovered document IDs in batches of 100;
-5. updates each affected Scene's public `fog.reset` timestamp;
-6. reinitializes the active canvas fog manager when appropriate.
+The backup format intentionally does not contain the potentially large binary/base64 FogExploration map payloads.
+
+## Stored Fog Exploration purge
+
+Purge discovery avoids constructing the full Scene × User query matrix in memory. It reuses already-loaded FogExploration records and lazily dispatches only a bounded number of unresolved `FogExploration.load` calls at once.
+
+Deletion and Scene reset writes use the same resilient batch isolation strategy as repair. Discovery, delete, and reset failures are tracked separately.
 
 ## Data ownership
 
-The module stores only:
-
-- Foundry world settings;
-- optional namespaced Scene exemption flags.
-
-It writes no mutable campaign data into `Data/modules/runyth-fog-policy/`, so reinstalling or migrating the module does not lose policy state that belongs to the World.
+Persistent state uses Foundry world settings and namespaced Scene flags. No mutable campaign state is written to the module installation directory.
 
 ## API references
 
 - <https://foundryvtt.com/api/v13/interfaces/foundry.documents.types.SceneData.html>
-- <https://foundryvtt.com/api/v13/classes/foundry.documents.Scene.html>
+- <https://foundryvtt.com/api/v13/classes/foundry.documents.collections.Scenes.html>
+- <https://foundryvtt.com/api/v13/classes/foundry.documents.Folder.html>
+- <https://foundryvtt.com/api/v13/classes/foundry.applications.api.ApplicationV2.html>
 - <https://foundryvtt.com/api/v13/modules/hookEvents.html>
-- <https://foundryvtt.com/api/v13/classes/foundry.abstract.DataModel.html>
 - <https://foundryvtt.com/api/v13/classes/foundry.documents.FogExploration.html>

@@ -2,6 +2,38 @@
 
 All notable changes to **Runyth Fog Policy** are documented here.
 
+## 1.0.1 - 2026-10-06
+
+### Added
+
+- Searchable, scrollable hierarchical Scene-folder filtering with optional descendant inclusion.
+- Structured Scene search fields: `name:`, `folder:`, `status:`, `fog:`, `exempt:`, and `id:` with quoted-value support.
+- Bulk selection workflows for filtered Scenes, inversion, and clearing.
+- Bulk repair, exemption, management, and selected-Scene FogExploration purge actions.
+- Policy-state backup export/import with selectable restore options and automatic pre-import safety backup.
+- Lightweight Scene-selection export/import.
+- Same-world stable-ID matching and cross-world unique name/folder-path fallback matching.
+- Fixed-row virtualization for both Scene and folder lists.
+- Synthetic scale test covering 10,000 Scenes and 500 nested folders.
+
+### Changed
+
+- Bulk Scene writes now use bounded batches with recursive split-on-failure isolation.
+- FogExploration purge discovery now uses bounded-memory lazy query scheduling instead of materializing the full Scene × User query matrix.
+- Dashboard filtering operates on cached normalized Scene/folder indices rather than repeatedly scanning live documents or rendering full tables.
+- Costly dashboard transitions/animations are explicitly disabled.
+- Dashboard summary updates no longer rescan every Scene for simple selection changes.
+- Automatic and manual failures now provide explicit `RFP-*` error codes, persistent actionable GM notifications where appropriate, and detailed console diagnostics.
+- Public API bulk methods now return partial-failure counts instead of implying all-or-nothing success.
+
+### Fixed
+
+- A single failing Scene can no longer abort every otherwise-valid Scene update in a bulk repair.
+- Very large world repair operations no longer send one unbounded `Scene.updateDocuments` payload.
+- Very large dashboard Scene collections no longer produce one DOM row per Scene.
+- Importing world settings now rolls back settings already changed when a later setting write fails.
+- Corrupt/cyclic Scene-folder relationships no longer cause an infinite traversal or silently hide the affected folders from the picker.
+
 ## 1.0.0 - 2026-10-06
 
 ### Added

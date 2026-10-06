@@ -1,17 +1,21 @@
-# Runyth Fog Policy 1.0.0
+# Runyth Fog Policy 1.0.1
 
 **Runyth Fog Policy** is a Foundry VTT v13 module for enforcing a world-level Fog of War policy in which managed Scenes do **not** retain persistent Fog Exploration.
 
-Its default policy is deliberately simple:
+Release 1.0.1 hardens the original policy engine and replaces the simple all-Scene dashboard with a scalable bulk-management interface designed for worlds containing thousands of Scenes and deeply nested Scene folders.
 
-- repair all existing world Scenes so `fog.exploration` is `false`;
-- create/import future world Scenes with Fog Exploration disabled;
-- prevent managed Scenes from being switched back to persistent Fog Exploration;
-- allow explicit per-Scene exemptions when the GM wants them;
-- provide an audit/repair dashboard;
-- provide a separate, confirmed operation for deleting already-stored per-user Fog Exploration records.
+## Core behavior
 
-The module is system-agnostic and does not depend on D&D 5e or any other game system.
+With the default settings the module:
+
+- repairs existing world Scenes so `fog.exploration` is `false`;
+- creates/imports future world Scenes with Fog Exploration disabled;
+- prevents managed Scenes from being switched back to persistent Fog Exploration;
+- allows explicit per-Scene exemptions;
+- exposes bulk audit, filtering, selection, repair, exemption, backup/import-export, and purge tools;
+- keeps deletion of already-stored per-user Fog Exploration records explicit and confirmed.
+
+The module is system-agnostic and has no required modules or third-party npm dependencies.
 
 ## Foundry compatibility
 
@@ -28,25 +32,13 @@ The v13 maximum is intentional. Foundry v14 changes the Scene fog model, so this
 
 ## Installation
 
-Extract the installable ZIP into Foundry's user-data module directory so the result is:
+Extract the installable ZIP so the result is:
 
 ```text
 Data/modules/runyth-fog-policy/module.json
 ```
 
-Restart Foundry if it was running, enable **Runyth Fog Policy** in the World, then reload the World.
-
-## Default behavior
-
-With the default settings, the active GM performs one idempotent bulk repair when the World becomes ready. Every non-exempt world Scene is changed to:
-
-```text
-fog.exploration = false
-```
-
-Future Scene creation and imports are intercepted before persistence so they receive the same value. A later attempt to re-enable Fog Exploration on a managed Scene is corrected before it is stored, with a post-operation active-GM repair as a defensive fallback.
-
-Compendium Scene documents are not modified. A Scene imported from a compendium into the World becomes a world Scene and is then subject to the policy.
+Restart Foundry if necessary, enable **Runyth Fog Policy** in the World, and reload the World.
 
 ## Dashboard
 
@@ -54,30 +46,71 @@ As a GM, open:
 
 **Game Settings → Configure Settings → Module Settings → Runyth Fog Policy → Open Fog Policy Dashboard**
 
-The dashboard shows:
+The v1.0.1 dashboard provides:
 
-- total world Scenes;
-- managed Scenes;
-- compliant Scenes;
-- Scenes needing repair;
-- exempt Scenes;
-- per-Scene current Fog Exploration state;
-- bulk **Repair all managed Scenes**;
-- per-Scene exemption controls;
-- **Purge stored exploration** for permanent cleanup of saved exploration records.
+- cached audit counters for total, managed, compliant, non-compliant, exempt, filtered, and selected Scenes;
+- free-text search with quoted terms;
+- structured query fields: `name:`, `folder:`, `status:`, `fog:`, `exempt:`, and `id:`;
+- status and Fog Exploration filters;
+- a searchable, scrollable hierarchical Scene-folder picker;
+- optional inclusion of nested folders;
+- select filtered, invert filtered selection, and clear selection;
+- bulk repair, exemption, management, and stored-fog purge operations;
+- policy-state backup export/import;
+- lightweight Scene-selection export/import.
+
+Both the Scene list and folder list are fixed-row virtualized. Only visible rows plus a small overscan buffer exist in the DOM. There are no dashboard animations or transitions that scale with list size.
+
+## Bulk update resilience
+
+Scene changes are sent through bounded batches rather than one unbounded request. If Foundry rejects a batch, Runyth Fog Policy recursively splits only that failed batch until the failing Scene update is isolated.
+
+This means one malformed or otherwise unmodifiable Scene does not cause every other Scene in the operation to be discarded. Partial failures are surfaced with permanent GM notifications and detailed `RFP-*` error information in the browser console.
+
+## Backup and import/export
+
+The dashboard can export either:
+
+- the **currently selected Scenes**; or
+- **all Scenes matching the active filters**.
+
+A policy backup stores:
+
+- Scene identity;
+- Scene name and folder path for cross-world fallback matching;
+- `fog.exploration` state;
+- Runyth Fog Policy exemption state;
+- optionally, the module's world policy settings.
+
+Import options independently control whether to restore:
+
+- Scene exemptions;
+- Fog Exploration state where the active policy permits it;
+- included world settings;
+- matched Scenes into the current dashboard selection.
+
+A pre-import safety backup can be downloaded automatically before changes are applied. Setting restoration attempts rollback if a later setting write fails.
+
+**Important:** a policy backup does not contain the large per-user `FogExploration` explored-map payloads. It can restore policy/configuration state; it cannot resurrect fog-history records after those records were purged.
+
+Selection exports contain only Scene identity/name/folder-path metadata and never change Scene settings when imported.
+
+### Import matching
+
+When importing back into the same Foundry World, stable Scene IDs are preferred. Across different Worlds, IDs are not trusted; matching falls back to a unique combination of Scene name and hierarchical folder path. Ambiguous and unmatched entries are reported and not modified.
 
 ## Stored exploration cleanup
 
-Disabling Scene Fog Exploration is not the same operation as deleting historical `FogExploration` documents. This module therefore does **not** delete saved exploration automatically.
+Disabling Scene Fog Exploration is separate from deleting historical `FogExploration` documents. Purge is therefore never automatic.
 
-Use **Purge stored exploration** only when you intentionally want to remove the historical records for all users on managed Scenes. The action:
+For selected Scenes, purge:
 
-1. discovers saved exploration per managed Scene and User using Foundry's public `FogExploration.load` API;
-2. deletes discovered records through the public document deletion API in bounded batches;
-3. updates the Scene fog-reset timestamp;
-4. refreshes the active canvas fog state when applicable.
-
-This operation is irreversible without restoring a World backup.
+1. uses already-loaded FogExploration documents where available;
+2. lazily checks remaining Scene/User pairs through `FogExploration.load({scene, user})` with bounded concurrency and bounded memory;
+3. deletes discovered records in resilient batches;
+4. updates Scene `fog.reset` timestamps;
+5. refreshes the active canvas fog state when applicable;
+6. reports discovery, deletion, and reset failures separately instead of claiming an incomplete purge succeeded.
 
 ## Settings
 
@@ -85,30 +118,26 @@ This operation is irreversible without restoring a World backup.
 | --- | ---: | --- |
 | Enable strict Fog Exploration policy | On | Master policy switch |
 | Repair existing Scenes when the world loads | On | Active GM bulk-repairs non-compliant Scenes at startup |
-| Enforce on newly created and imported Scenes | On | Forces new world Scenes to persistent exploration off |
+| Enforce on newly created and imported Scenes | On | Forces future world Scenes to persistent exploration off |
 | Prevent managed Scenes from re-enabling Fog Exploration | On | Enforces policy during Scene updates |
-| Allow per-Scene exemptions | On | Lets selected Scenes opt out via dashboard |
+| Allow per-Scene exemptions | On | Lets selected Scenes opt out |
 | Notify me after automatic repair | On | Client-side notification for the active GM |
 
 ## Public API
-
-After `init`, other modules and macros can use:
 
 ```javascript
 const api = game.modules.get("runyth-fog-policy")?.api;
 
 const audit = api.audit();
-await api.repair();
-await api.setSceneExempt(sceneId, true);
-await api.purgeStoredExploration();
+await api.repair({ sceneIds: [sceneId] });
+await api.setScenesExempt([sceneId], true);
+await api.purgeStoredExploration({ sceneIds: [sceneId], includeExempt: true });
 api.openDashboard();
 ```
 
 See [`docs/api.md`](docs/api.md) for the complete contract.
 
 ## Development
-
-The project deliberately has no third-party npm runtime or development dependencies.
 
 ```text
 npm ci
@@ -125,29 +154,27 @@ Or run all gates:
 npm run check
 ```
 
-Release archives are written under `dist/releases/`.
-
 ## Repository and release conventions
 
 - default branch: `master`;
 - semantic versioning;
 - capitalized Conventional-Commits-derived messages;
-- `Prog:` is used for repository/tooling work instead of `Chore:`;
+- `Prog:` instead of `Chore:` for repository/tooling work;
 - installable ZIP contains one `runyth-fog-policy/` module directory;
 - source ZIP contains the complete repository including `.git` history;
-- documentation ZIP contains documentation/audit material and intentionally **does not contain `module.json`**;
-- packaging is deterministic for unchanged source state.
+- documentation ZIP intentionally contains no `module.json`;
+- deterministic packaging for unchanged source state.
 
 ## Upstream API references
 
-- Foundry v13 Scene data: <https://foundryvtt.com/api/v13/interfaces/foundry.documents.types.SceneData.html>
-- Foundry v13 Scene document: <https://foundryvtt.com/api/v13/classes/foundry.documents.Scene.html>
-- Foundry v13 document hooks: <https://foundryvtt.com/api/v13/modules/hookEvents.html>
-- Foundry v13 FogManager: <https://foundryvtt.com/api/v13/classes/foundry.canvas.perception.FogManager.html>
-- Foundry v13 FogExploration: <https://foundryvtt.com/api/v13/classes/foundry.documents.FogExploration.html>
-- Foundry v13 FogExploration data: <https://foundryvtt.com/api/v13/interfaces/foundry.documents.types.FogExplorationData.html>
-- Foundry v13 ClientSettings: <https://foundryvtt.com/api/v13/classes/foundry.helpers.ClientSettings.html>
-- Foundry module development: <https://foundryvtt.com/article/module-development/>
+- Scene data: <https://foundryvtt.com/api/v13/interfaces/foundry.documents.types.SceneData.html>
+- Scene collection: <https://foundryvtt.com/api/v13/classes/foundry.documents.collections.Scenes.html>
+- Folder document: <https://foundryvtt.com/api/v13/classes/foundry.documents.Folder.html>
+- ApplicationV2: <https://foundryvtt.com/api/v13/classes/foundry.applications.api.ApplicationV2.html>
+- Document hooks: <https://foundryvtt.com/api/v13/modules/hookEvents.html>
+- FogExploration: <https://foundryvtt.com/api/v13/classes/foundry.documents.FogExploration.html>
+- ClientSettings: <https://foundryvtt.com/api/v13/classes/foundry.helpers.ClientSettings.html>
+- Module development: <https://foundryvtt.com/article/module-development/>
 
 ## License
 

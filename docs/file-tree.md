@@ -13,9 +13,11 @@ runyth-fog-policy/
 │   ├── architecture.md
 │   ├── compatibility.md
 │   ├── file-tree.md
+│   ├── hardening-audit-1.0.1.md
 │   ├── known-limitations.md
 │   ├── manual-test-checklist.md
 │   ├── release-notes-1.0.0.md
+│   ├── release-notes-1.0.1.md
 │   ├── release-process.md
 │   ├── requirements-traceability.md
 │   ├── security-and-data.md
@@ -27,8 +29,19 @@ runyth-fog-policy/
 │   ├── de.json
 │   └── en.json
 ├── scripts/
+│   ├── core/
+│   │   ├── backup-core.js
+│   │   ├── batch-core.js
+│   │   ├── filter-core.js
+│   │   └── scene-index-core.js
+│   ├── services/
+│   │   ├── backup-service.js
+│   │   └── file-service.js
+│   ├── ui/
+│   │   └── virtual-list.js
 │   ├── constants.js
 │   ├── dashboard.js
+│   ├── errors.js
 │   ├── logger.js
 │   ├── main.js
 │   ├── policy-core.js
@@ -39,8 +52,14 @@ runyth-fog-policy/
 ├── templates/
 │   └── dashboard.hbs
 ├── tests/
+│   ├── backup-core.test.mjs
+│   ├── batch-core.test.mjs
+│   ├── filter-core.test.mjs
 │   ├── manifest.test.mjs
-│   └── policy-core.test.mjs
+│   ├── performance.test.mjs
+│   ├── policy-core.test.mjs
+│   ├── scene-index-core.test.mjs
+│   └── static-hardening.test.mjs
 ├── tools/
 │   ├── build.mjs
 │   ├── lint.mjs
@@ -60,4 +79,4 @@ runyth-fog-policy/
 └── package.json
 ```
 
-The source release additionally contains the complete `.git/` repository history. Generated `dist/` output and `node_modules/` are excluded from the source archive.
+The source release additionally contains the complete `.git/` repository history. Generated `dist/`, `node_modules/`, Python caches, and transient files are excluded from the source archive.

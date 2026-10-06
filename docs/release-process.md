@@ -22,12 +22,12 @@ npm run release:verify
 
 ## Artifacts
 
-For version `1.0.0`:
+For version `<version>`:
 
 ```text
-runyth-fog-policy-1.0.0.zip
-runyth-fog-policy-source-1.0.0.zip
-runyth-fog-policy-docs-1.0.0.zip
+runyth-fog-policy-<version>.zip
+runyth-fog-policy-source-<version>.zip
+runyth-fog-policy-docs-<version>.zip
 ```
 
 ### Installable ZIP
@@ -36,7 +36,7 @@ Contains exactly one `runyth-fog-policy/` directory and runtime-required files.
 
 ### Source ZIP
 
-Contains the complete repository, including `.git` history, source, tests, tools, CI, and documentation. Generated `dist/` and transient files are excluded.
+Contains the complete repository, including `.git` history, source, tests, tools, CI, and documentation. Generated `dist/`, `node_modules/`, caches, and transient files are excluded.
 
 ### Documentation ZIP
 
@@ -44,14 +44,28 @@ Contains README/changelog/license plus the `docs/` tree. It intentionally contai
 
 ## Determinism
 
-The packaging script uses sorted file order, fixed ZIP entry timestamps/permissions, and a canonical Git index generated from `HEAD`. Running packaging twice without changing the repository—including after extracting the source ZIP—should produce byte-identical archives.
+The packaging script uses sorted file order, fixed ZIP entry timestamps/permissions, and a canonical Git index generated from `HEAD`. Running packaging twice without changing the repository—including after extracting the source ZIP—must produce byte-identical archives.
+
+## Release gate
+
+Before tagging:
+
+1. ensure the worktree is clean except for the intended release changes;
+2. run `npm ci`;
+3. run `npm run check`;
+4. run `git fsck --full`;
+5. inspect all three archives;
+6. extract the source ZIP into a clean directory;
+7. verify `master`, Git history, and the intended exact tag state;
+8. rerun lint/tests/build/package/verification from the extracted source;
+9. compare SHA-256 values of all three rebuilt ZIPs against the originals.
 
 ## Tagging
 
-After all validation commits are complete:
+After all implementation/documentation commits are complete:
 
 ```text
-git tag -a v1.0.0 -m "Runyth Fog Policy v1.0.0"
+git tag -a v<version> -m "Runyth Fog Policy v<version>"
 ```
 
-Build final release archives from that exact tagged worktree state.
+Build the final release archives from that exact tagged worktree state. Do not retag a different source state after publishing checksums.
