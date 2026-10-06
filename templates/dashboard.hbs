@@ -1,0 +1,74 @@
+<section class="runyth-fog-policy-dashboard">
+  <header class="policy-summary">
+    <h2>{{localize policyStatusKey}}</h2>
+    <p>{{localize "RUNYTH_FOG_POLICY.Dashboard.Intro"}}</p>
+
+    <div class="summary-grid" role="list">
+      <div role="listitem"><strong>{{audit.total}}</strong><span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Total"}}</span></div>
+      <div role="listitem"><strong>{{audit.managed}}</strong><span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Managed"}}</span></div>
+      <div role="listitem"><strong>{{audit.compliant}}</strong><span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Compliant"}}</span></div>
+      <div role="listitem"><strong>{{audit.nonCompliant}}</strong><span>{{localize "RUNYTH_FOG_POLICY.Dashboard.NonCompliant"}}</span></div>
+      <div role="listitem"><strong>{{audit.exempt}}</strong><span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Exempt"}}</span></div>
+    </div>
+  </header>
+
+  <nav class="policy-actions" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.Actions'}}">
+    <button type="button" data-action="audit">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      {{localize "RUNYTH_FOG_POLICY.Dashboard.Audit"}}
+    </button>
+    <button type="button" data-action="repair" {{#unless settings.enabled}}disabled{{/unless}}>
+      <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+      {{localize "RUNYTH_FOG_POLICY.Dashboard.Repair"}}
+    </button>
+    <button type="button" data-action="purge" class="danger" {{#unless settings.enabled}}disabled{{/unless}}>
+      <i class="fa-solid fa-eraser" aria-hidden="true"></i>
+      {{localize "RUNYTH_FOG_POLICY.Dashboard.Purge"}}
+    </button>
+  </nav>
+
+  <p class="warning-note">
+    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+    {{localize "RUNYTH_FOG_POLICY.Dashboard.PurgeWarning"}}
+  </p>
+
+  <div class="scene-table-wrapper">
+    <table class="scene-table">
+      <thead>
+        <tr>
+          <th>{{localize "RUNYTH_FOG_POLICY.Dashboard.Scene"}}</th>
+          <th>{{localize "RUNYTH_FOG_POLICY.Dashboard.FogExploration"}}</th>
+          <th>{{localize "RUNYTH_FOG_POLICY.Dashboard.StatusLabel"}}</th>
+          <th>{{localize "RUNYTH_FOG_POLICY.Dashboard.Exemption"}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rows}}
+          <tr class="status-{{status}}">
+            <td>{{name}}</td>
+            <td>{{localize explorationKey}}</td>
+            <td>{{localize statusKey}}</td>
+            <td>
+              {{#if ../settings.allowSceneExemptions}}
+                <button
+                  type="button"
+                  class="inline-control"
+                  data-action="toggleExempt"
+                  data-scene-id="{{id}}"
+                >
+                  {{localize exemptionActionKey}}
+                </button>
+              {{else}}
+                {{localize "RUNYTH_FOG_POLICY.Dashboard.ExemptionsDisabled"}}
+              {{/if}}
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="4">{{localize "RUNYTH_FOG_POLICY.Dashboard.NoScenes"}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>
