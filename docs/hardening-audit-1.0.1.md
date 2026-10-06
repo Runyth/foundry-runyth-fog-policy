@@ -24,7 +24,7 @@ This audit re-reviewed the v1.0.0 implementation with emphasis on failure isolat
 | Cyclic/corrupt folder parent data | Traversal could recurse indefinitely or hide folders | Cycle detection, visited sets, finite fallback rendering |
 | Exemption button state drift | Generic availability refresh could re-enable controls while exemptions were globally disabled | Shared `data-requires-exemptions` availability rule for row and bulk controls |
 | Costly UI effects | Large dashboards could spend time on cosmetic transitions | Dashboard animations/transitions explicitly disabled |
-| Source ZIP extractor mode loss | Some ZIP extractors do not preserve Unix executable bits, making an otherwise identical Git worktree appear dirty | Source archive injects a canonical Git config with `filemode = false` and archive verification enforces it |
+| Source ZIP extractor mode loss | Some ZIP extractors do not preserve Unix executable bits, making an otherwise identical Git worktree appear dirty and changing rebuilt ZIP metadata | Source archive injects a canonical Git config with `filemode = false`, derives tracked executable bits from Git `HEAD` rather than the filesystem, and verifies canonical ZIP modes |
 
 ## Large-World strategy
 

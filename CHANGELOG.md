@@ -33,7 +33,7 @@ All notable changes to **Runyth Fog Policy** are documented here.
 - Very large dashboard Scene collections no longer produce one DOM row per Scene.
 - Importing world settings now rolls back settings already changed when a later setting write fails.
 - Corrupt/cyclic Scene-folder relationships no longer cause an infinite traversal or silently hide the affected folders from the picker.
-- Source ZIP Git status no longer depends on whether the ZIP extractor preserves Unix executable bits.
+- Source ZIP Git status and byte-level reproducibility no longer depend on whether the ZIP extractor preserves Unix executable bits.
 
 ## 1.0.0 - 2026-10-06
 

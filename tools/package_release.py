@@ -26,8 +26,15 @@ def zip_info(name: str, is_dir: bool = False, executable: bool = False) -> zipfi
   return info
 
 
-def add_tree(zf: zipfile.ZipFile, source: Path, archive_root: str, exclude=None) -> None:
+def add_tree(
+  zf: zipfile.ZipFile,
+  source: Path,
+  archive_root: str,
+  exclude=None,
+  executable_for=None
+) -> None:
   exclude = exclude or (lambda _p: False)
+  executable_for = executable_for or (lambda rel: os.access(source / rel, os.X_OK))
   directories = set()
   files = []
   for path in source.rglob("*"):
@@ -49,7 +56,7 @@ def add_tree(zf: zipfile.ZipFile, source: Path, archive_root: str, exclude=None)
 
   for rel in sorted(files, key=lambda p: p.as_posix()):
     path = source / rel
-    executable = os.access(path, os.X_OK)
+    executable = executable_for(rel)
     zf.writestr(zip_info(f"{archive_root}/{rel.as_posix()}", executable=executable), path.read_bytes())
 
 
@@ -113,8 +120,26 @@ def main() -> int:
       return True
     return any(part in {"__pycache__"} for part in parts) or rel.suffix in {".pyc"}
 
+  tracked_executables = set()
+  staged = subprocess.check_output(
+    ["git", "ls-files", "--stage"],
+    cwd=root,
+    text=True,
+  )
+  for line in staged.splitlines():
+    metadata, path = line.split("\t", 1)
+    mode = metadata.split(" ", 1)[0]
+    if mode == "100755":
+      tracked_executables.add(path)
+
   with zipfile.ZipFile(source_zip, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
-    add_tree(zf, root, "runyth-fog-policy", exclude=source_exclude)
+    add_tree(
+      zf,
+      root,
+      "runyth-fog-policy",
+      exclude=source_exclude,
+      executable_for=lambda rel: rel.as_posix() in tracked_executables,
+    )
 
     # Git rewrites index stat metadata when a repository is extracted or inspected.
     # Generate an index solely from HEAD so the source archive remains reproducible
