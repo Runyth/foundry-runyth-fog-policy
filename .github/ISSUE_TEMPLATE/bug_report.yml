@@ -1,0 +1,36 @@
+name: Bug report
+description: Report a reproducible Runyth Fog Policy problem
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: input
+    id: foundry
+    attributes:
+      label: Foundry version
+      placeholder: 13.350
+    validations:
+      required: true
+  - type: input
+    id: module
+    attributes:
+      label: Runyth Fog Policy version
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant console logs
