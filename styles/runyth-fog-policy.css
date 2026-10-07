@@ -1,41 +1,80 @@
+.application.runyth-fog-policy-dashboard-window {
+  min-width: min(620px, calc(100vw - 48px));
+  min-height: min(500px, calc(100vh - 48px));
+}
+
+.application.runyth-fog-policy-dashboard-window .window-content,
+.application.runyth-fog-policy-help .window-content {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .runyth-fog-policy-dashboard,
-.runyth-fog-policy-dashboard * {
+.runyth-fog-policy-dashboard *,
+.runyth-fog-policy-help-content,
+.runyth-fog-policy-help-content * {
   box-sizing: border-box;
 }
 
 .runyth-fog-policy-dashboard {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
-  min-height: 0;
+  gap: 0.5rem;
+  width: 100%;
   height: 100%;
-  padding: 0.7rem;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.6rem;
   overflow: hidden;
 }
 
 .runyth-fog-policy-dashboard button,
 .runyth-fog-policy-dashboard input,
 .runyth-fog-policy-dashboard details,
-.runyth-fog-policy-dashboard summary {
+.runyth-fog-policy-dashboard summary,
+.runyth-fog-policy-dashboard label,
+.runyth-fog-policy-help-content a {
   transition: none !important;
   animation: none !important;
 }
 
-.runyth-fog-policy-dashboard .summary-heading {
-  display: flex;
-  align-items: start;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.runyth-fog-policy-dashboard .policy-summary h2,
-.runyth-fog-policy-dashboard .policy-summary p,
-.runyth-fog-policy-dashboard h3 {
+.runyth-fog-policy-dashboard h2,
+.runyth-fog-policy-dashboard h3,
+.runyth-fog-policy-dashboard p {
   margin: 0;
 }
 
+.runyth-fog-policy-dashboard button i,
+.runyth-fog-policy-dashboard summary i {
+  margin-right: 0.35rem;
+}
+
+.runyth-fog-policy-dashboard .policy-summary {
+  flex: 0 0 auto;
+}
+
+.runyth-fog-policy-dashboard .summary-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.runyth-fog-policy-dashboard .summary-copy {
+  min-width: 0;
+}
+
+.runyth-fog-policy-dashboard .summary-copy p {
+  margin-top: 0.15rem;
+  color: var(--color-text-secondary, #aaa);
+  line-height: 1.25;
+}
+
 .runyth-fog-policy-dashboard .operation-state {
-  flex: 0 1 36%;
+  flex: 0 1 34%;
+  min-width: 130px;
   min-height: 1.5rem;
   text-align: right;
   font-size: var(--font-size-12, 0.75rem);
@@ -44,43 +83,50 @@
 
 .runyth-fog-policy-dashboard .summary-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(90px, 1fr));
-  gap: 0.35rem;
-  margin-top: 0.55rem;
+  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+  gap: 0.3rem;
+  margin-top: 0.45rem;
 }
 
 .runyth-fog-policy-dashboard .summary-grid > div {
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem;
   min-width: 0;
-  padding: 0.4rem 0.5rem;
+  padding: 0.32rem 0.45rem;
   border: 1px solid var(--color-border-light-primary);
   border-radius: 3px;
 }
 
 .runyth-fog-policy-dashboard .summary-grid strong {
-  font-size: 1.15rem;
-  line-height: 1;
+  flex: 0 0 auto;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .runyth-fog-policy-dashboard .summary-grid span {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: var(--font-size-11, 0.6875rem);
+  color: var(--color-text-secondary, #aaa);
 }
 
-.runyth-fog-policy-dashboard .policy-actions,
-.runyth-fog-policy-dashboard .button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
+.runyth-fog-policy-dashboard .policy-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 0.3rem;
+  flex: 0 0 auto;
 }
 
-.runyth-fog-policy-dashboard .compact-actions button {
-  flex: 1 1 145px;
+.runyth-fog-policy-dashboard .policy-actions button {
+  min-width: 0;
   min-height: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .runyth-fog-policy-dashboard button.danger,
@@ -88,102 +134,161 @@
   border-color: var(--color-level-error-border, #a00000);
 }
 
-.runyth-fog-policy-dashboard .dashboard-workspace {
-  display: grid;
-  grid-template-columns: minmax(250px, 29%) minmax(0, 1fr);
-  gap: 0.55rem;
-  min-height: 260px;
-  flex: 1 1 auto;
-  overflow: hidden;
-}
-
-.runyth-fog-policy-dashboard .filter-panel,
-.runyth-fog-policy-dashboard .scene-panel {
+.runyth-fog-policy-dashboard .scene-tools {
+  flex: 0 0 auto;
   min-width: 0;
-  min-height: 0;
+  padding: 0.45rem;
   border: 1px solid var(--color-border-light-primary);
   background: var(--color-cool-5-25, rgba(20, 20, 25, 0.18));
 }
 
-.runyth-fog-policy-dashboard .filter-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  padding: 0.45rem;
-  overflow: auto;
-  overscroll-behavior: contain;
-}
-
-.runyth-fog-policy-dashboard .filter-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  min-width: 0;
-}
-
-.runyth-fog-policy-dashboard .section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.35rem;
-}
-
-.runyth-fog-policy-dashboard .section-heading .icon-button {
-  flex: 0 0 auto;
-  width: 2rem;
-  min-height: 1.8rem;
-}
-
-.runyth-fog-policy-dashboard .filter-options-grid {
+.runyth-fog-policy-dashboard .search-toolbar {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  gap: 0.4rem;
-}
-
-.runyth-fog-policy-dashboard fieldset {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  min-width: 0;
-  margin: 0;
-  padding: 0.35rem 0.45rem;
-  border: 1px solid var(--color-border-light-primary);
-}
-
-.runyth-fog-policy-dashboard fieldset label,
-.runyth-fog-policy-dashboard .compact-check {
-  display: flex;
+  grid-template-columns: minmax(180px, 1fr) auto 2rem;
   align-items: center;
   gap: 0.35rem;
   min-width: 0;
 }
 
-.runyth-fog-policy-dashboard input[type="checkbox"],
-.runyth-fog-policy-dashboard input[type="radio"] {
+.runyth-fog-policy-dashboard .search-control {
+  display: grid;
+  grid-template-columns: 1.7rem minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+  border: 1px solid var(--color-border-light-primary);
+  border-radius: 3px;
+  background: var(--color-cool-5-50, rgba(20, 20, 25, 0.3));
+}
+
+.runyth-fog-policy-dashboard .search-control > i {
+  text-align: center;
+  color: var(--color-text-secondary, #aaa);
+  pointer-events: none;
+}
+
+.runyth-fog-policy-dashboard .search-control input[type="search"] {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.runyth-fog-policy-dashboard .folder-toggle {
+  min-width: 0;
+  min-height: 2rem;
+  white-space: nowrap;
+}
+
+.runyth-fog-policy-dashboard .icon-button {
+  width: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding-inline: 0;
+}
+
+.runyth-fog-policy-dashboard .icon-button i {
+  margin-right: 0;
+}
+
+.runyth-fog-policy-dashboard .count-badge {
+  display: inline-block;
+  min-width: 1.2rem;
+  margin-left: 0.25rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  font-size: var(--font-size-11, 0.6875rem);
+  font-variant-numeric: tabular-nums;
+  background: var(--color-cool-4, rgba(255, 255, 255, 0.12));
+}
+
+.runyth-fog-policy-dashboard .count-badge[hidden] {
+  display: none;
+}
+
+.runyth-fog-policy-dashboard .quick-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.4rem;
+  margin-top: 0.35rem;
+  min-width: 0;
+}
+
+.runyth-fog-policy-dashboard .filter-group-label {
+  font-size: var(--font-size-11, 0.6875rem);
+  font-weight: 700;
+  color: var(--color-text-secondary, #aaa);
+}
+
+.runyth-fog-policy-dashboard .filter-chip,
+.runyth-fog-policy-dashboard .compact-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.runyth-fog-policy-dashboard .filter-chip input,
+.runyth-fog-policy-dashboard .compact-check input {
   flex: 0 0 auto;
   margin: 0;
 }
 
-.runyth-fog-policy-dashboard input[type="search"] {
-  width: 100%;
+.runyth-fog-policy-dashboard .filter-chip span {
+  white-space: nowrap;
 }
 
+.runyth-fog-policy-dashboard .filter-divider {
+  width: 1px;
+  height: 1.25rem;
+  margin-inline: 0.1rem;
+  background: var(--color-border-light-primary);
+}
+
+.runyth-fog-policy-dashboard .search-help,
 .runyth-fog-policy-dashboard .microcopy {
-  margin: 0;
+  margin-top: 0.25rem;
   color: var(--color-text-secondary, #aaa);
   font-size: var(--font-size-11, 0.6875rem);
   line-height: 1.25;
 }
 
-.runyth-fog-policy-dashboard .folder-picker {
-  min-height: 150px;
-  flex: 1 1 210px;
+.runyth-fog-policy-dashboard .folder-drawer {
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--color-border-light-primary);
+}
+
+.runyth-fog-policy-dashboard .folder-drawer[hidden] {
+  display: none;
+}
+
+.runyth-fog-policy-dashboard .folder-toolbar {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto auto;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.runyth-fog-policy-dashboard .compact-search {
+  min-height: 1.8rem;
+}
+
+.runyth-fog-policy-dashboard .folder-visible-summary,
+.runyth-fog-policy-dashboard .counter {
+  color: var(--color-text-secondary, #aaa);
+  font-size: var(--font-size-11, 0.6875rem);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .runyth-fog-policy-dashboard .folder-virtual-list,
 .runyth-fog-policy-dashboard .scene-virtual-list {
   position: relative;
+  min-width: 0;
   min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
@@ -192,8 +297,10 @@
 }
 
 .runyth-fog-policy-dashboard .folder-virtual-list {
-  height: 180px;
+  height: min(220px, 28vh);
+  min-height: 120px;
   border: 1px solid var(--color-border-light-primary);
+  background: var(--color-cool-5-25, rgba(20, 20, 25, 0.18));
 }
 
 .runyth-fog-policy-dashboard .virtual-spacer {
@@ -215,7 +322,7 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0 0.35rem 0 calc(0.35rem + var(--folder-depth, 0) * 0.8rem);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-border-light-primary) 50%, transparent);
+  border-bottom: 1px solid var(--color-border-light-primary);
   cursor: pointer;
 }
 
@@ -225,30 +332,52 @@
   white-space: nowrap;
 }
 
-.runyth-fog-policy-dashboard .folder-count,
-.runyth-fog-policy-dashboard .counter {
+.runyth-fog-policy-dashboard .folder-count {
   min-width: 1.8rem;
   text-align: right;
   color: var(--color-text-secondary, #aaa);
   font-variant-numeric: tabular-nums;
 }
 
-.runyth-fog-policy-dashboard .selection-actions button {
+.runyth-fog-policy-dashboard .selection-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+.runyth-fog-policy-dashboard .selection-actions,
+.runyth-fog-policy-dashboard .button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.3rem;
+}
+
+.runyth-fog-policy-dashboard .selection-actions button,
+.runyth-fog-policy-dashboard .button-row button {
   min-height: 1.8rem;
 }
 
 .runyth-fog-policy-dashboard .scene-panel {
   display: grid;
   grid-template-rows: 34px minmax(0, 1fr);
+  min-width: 0;
+  min-height: 180px;
+  flex: 1 1 auto;
   overflow: hidden;
+  border: 1px solid var(--color-border-light-primary);
+  background: var(--color-cool-5-25, rgba(20, 20, 25, 0.18));
 }
 
 .runyth-fog-policy-dashboard .scene-table-header,
 .runyth-fog-policy-dashboard .scene-virtual-row {
   display: grid;
-  grid-template-columns: 34px minmax(180px, 2fr) minmax(95px, 0.7fr) minmax(100px, 0.75fr) minmax(130px, 0.9fr);
+  grid-template-columns: 34px minmax(160px, 2fr) minmax(88px, 0.65fr) minmax(95px, 0.75fr) minmax(120px, 0.9fr);
   align-items: center;
-  min-width: 670px;
+  min-width: 0;
 }
 
 .runyth-fog-policy-dashboard .scene-table-header {
@@ -257,13 +386,20 @@
   font-weight: 700;
 }
 
+.runyth-fog-policy-dashboard .scene-table-header > span {
+  min-width: 0;
+  padding-inline: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .runyth-fog-policy-dashboard .scene-virtual-list {
   height: 100%;
-  min-height: 220px;
 }
 
 .runyth-fog-policy-dashboard .scene-virtual-row {
-  border-bottom: 1px solid color-mix(in srgb, var(--color-border-light-primary) 55%, transparent);
+  border-bottom: 1px solid var(--color-border-light-primary);
 }
 
 .runyth-fog-policy-dashboard .scene-cell {
@@ -283,19 +419,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  line-height: 1.15;
+  line-height: 1.12;
 }
 
 .runyth-fog-policy-dashboard .scene-name,
-.runyth-fog-policy-dashboard .scene-folder-path {
+.runyth-fog-policy-dashboard .scene-folder-path,
+.runyth-fog-policy-dashboard .scene-compact-meta {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.runyth-fog-policy-dashboard .scene-folder-path {
+.runyth-fog-policy-dashboard .scene-folder-path,
+.runyth-fog-policy-dashboard .scene-compact-meta {
   color: var(--color-text-secondary, #aaa);
   font-size: var(--font-size-11, 0.6875rem);
+}
+
+.runyth-fog-policy-dashboard .scene-compact-meta {
+  display: none;
 }
 
 .runyth-fog-policy-dashboard .scene-action-cell {
@@ -339,33 +481,198 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.45rem;
   padding: 0.45rem;
+  max-height: min(360px, 42vh);
+  overflow: auto;
+  overscroll-behavior: contain;
 }
 
-.runyth-fog-policy-dashboard .transfer-grid button {
-  min-height: 1.8rem;
+.runyth-fog-policy-dashboard fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--color-border-light-primary);
+}
+
+.runyth-fog-policy-dashboard fieldset label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.runyth-fog-policy-dashboard fieldset input[type="checkbox"],
+.runyth-fog-policy-dashboard fieldset input[type="radio"] {
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
 }
 
 .runyth-fog-policy-dashboard .warning-note {
-  margin: 0;
-  padding: 0.35rem 0.5rem;
+  flex: 0 0 auto;
+  padding: 0.3rem 0.45rem;
   border-left: 3px solid var(--color-level-warning-border, #a06000);
-  font-size: var(--font-size-12, 0.75rem);
+  font-size: var(--font-size-11, 0.6875rem);
 }
 
 .runyth-fog-policy-dashboard.is-busy {
   cursor: progress;
 }
 
-@media (max-width: 850px) {
-  .runyth-fog-policy-dashboard .summary-grid {
-    grid-template-columns: repeat(4, minmax(80px, 1fr));
+.runyth-fog-policy-dashboard.is-busy .scene-tools,
+.runyth-fog-policy-dashboard.is-busy .selection-toolbar,
+.runyth-fog-policy-dashboard.is-busy .scene-panel,
+.runyth-fog-policy-dashboard.is-busy .transfer-panel {
+  pointer-events: none;
+}
+
+.runyth-fog-policy-help-content {
+  height: 100%;
+  padding: 0.75rem;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.runyth-fog-policy-help-content .help-hero h2,
+.runyth-fog-policy-help-content h3,
+.runyth-fog-policy-help-content p {
+  margin-top: 0;
+}
+
+.runyth-fog-policy-help-content section {
+  margin-block: 1rem;
+}
+
+.runyth-fog-policy-help-content .help-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.65rem 0 1rem;
+}
+
+.runyth-fog-policy-help-content .help-jump a {
+  padding: 0.25rem 0.45rem;
+  border: 1px solid var(--color-border-light-primary);
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.runyth-fog-policy-help-content .help-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.runyth-fog-policy-help-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.runyth-fog-policy-help-content th,
+.runyth-fog-policy-help-content td {
+  padding: 0.35rem 0.45rem;
+  border: 1px solid var(--color-border-light-primary);
+  text-align: left;
+  vertical-align: top;
+}
+
+.runyth-fog-policy-help-content dt {
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
+.runyth-fog-policy-help-content dd {
+  margin: 0.15rem 0 0.4rem 1rem;
+}
+
+.runyth-fog-policy-help-content .help-warning {
+  padding: 0.55rem;
+  border-left: 3px solid var(--color-level-warning-border, #a06000);
+}
+
+@media (max-width: 820px) {
+  .runyth-fog-policy-dashboard .summary-heading {
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
-  .runyth-fog-policy-dashboard .dashboard-workspace {
-    grid-template-columns: minmax(210px, 36%) minmax(0, 1fr);
+  .runyth-fog-policy-dashboard .operation-state {
+    min-width: 0;
+    max-width: 100%;
+    text-align: left;
   }
 
   .runyth-fog-policy-dashboard .transfer-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .runyth-fog-policy-dashboard {
+    padding: 0.45rem;
+  }
+
+  .runyth-fog-policy-dashboard .search-toolbar {
+    grid-template-columns: minmax(0, 1fr) auto 2rem;
+  }
+
+  .runyth-fog-policy-dashboard .folder-toggle > span:not(.count-badge) {
+    display: none;
+  }
+
+  .runyth-fog-policy-dashboard .folder-toggle i {
+    margin-right: 0;
+  }
+
+  .runyth-fog-policy-dashboard .folder-toolbar {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .runyth-fog-policy-dashboard .selection-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .runyth-fog-policy-dashboard .selection-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .runyth-fog-policy-dashboard .selection-actions button {
+    flex: 1 1 140px;
+  }
+
+  .runyth-fog-policy-dashboard .scene-table-header,
+  .runyth-fog-policy-dashboard .scene-virtual-row {
+    grid-template-columns: 34px minmax(0, 1fr) minmax(105px, 145px);
+  }
+
+  .runyth-fog-policy-dashboard .scene-fog-header,
+  .runyth-fog-policy-dashboard .scene-status-header,
+  .runyth-fog-policy-dashboard .scene-fog-cell,
+  .runyth-fog-policy-dashboard .scene-status-cell {
+    display: none;
+  }
+
+  .runyth-fog-policy-dashboard .scene-compact-meta {
+    display: block;
+  }
+}
+
+@media (max-width: 560px) {
+  .runyth-fog-policy-dashboard .policy-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .runyth-fog-policy-dashboard .filter-divider,
+  .runyth-fog-policy-dashboard .filter-group-label {
+    display: none;
+  }
+
+  .runyth-fog-policy-dashboard .search-help,
+  .runyth-fog-policy-dashboard .warning-note {
+    font-size: 0.65rem;
   }
 }

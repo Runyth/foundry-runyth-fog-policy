@@ -36,3 +36,46 @@ test("exemption actions declare the shared exemption-setting requirement", async
   assert.match(template, /data-action="exemptSelected"[^>]*data-requires-exemptions/);
   assert.match(template, /data-action="manageSelected"[^>]*data-requires-exemptions/);
 });
+
+
+test("dashboard uses a native ApplicationV2 header help control and dedicated help window", async () => {
+  const [dashboard, help] = await Promise.all([
+    readFile(dashboardUrl, "utf8"),
+    readFile(new URL("../scripts/help.js", import.meta.url), "utf8")
+  ]);
+
+  assert.match(dashboard, /window:\s*\{[\s\S]*controls:\s*\[/);
+  assert.match(dashboard, /action:\s*"help"/);
+  assert.match(dashboard, /openDashboardHelp/);
+  assert.match(help, /FogPolicyDashboardHelp/);
+});
+
+test("dashboard layout is flat, responsive, and keeps the hierarchical folder list virtualized", async () => {
+  const [template, css] = await Promise.all([
+    readFile(templateUrl, "utf8"),
+    readFile(cssUrl, "utf8")
+  ]);
+
+  assert.match(template, /class="search-toolbar"/);
+  assert.match(template, /class="quick-filter-bar"/);
+  assert.match(template, /data-folder-panel/);
+  assert.match(template, /folder-virtual-list/);
+  assert.doesNotMatch(template, /class="filter-panel"/);
+  assert.doesNotMatch(template, /<details\s+open/i);
+  assert.match(css, /@media\s*\(max-width:\s*760px\)/);
+  assert.match(css, /scene-compact-meta/);
+});
+
+test("dashboard persists geometry through a hidden client setting and debounced ApplicationV2 position lifecycle", async () => {
+  const [dashboard, settings] = await Promise.all([
+    readFile(dashboardUrl, "utf8"),
+    readFile(new URL("../scripts/settings.js", import.meta.url), "utf8")
+  ]);
+
+  assert.match(settings, /DASHBOARD_WINDOW_STATE/);
+  assert.match(settings, /scope:\s*"client"/);
+  assert.match(settings, /config:\s*false/);
+  assert.match(dashboard, /_onPosition\(position\)/);
+  assert.match(dashboard, /WINDOW_STATE_SAVE_DEBOUNCE_MS/);
+  assert.match(dashboard, /_preClose\(options\)/);
+});

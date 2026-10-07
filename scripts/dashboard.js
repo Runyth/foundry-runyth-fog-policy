@@ -5,7 +5,10 @@ import {
   buildSceneRecords,
   expandSelectedFolders
 } from "./core/scene-index-core.js";
+import { extractWindowState, normalizeWindowState } from "./core/window-state-core.js";
 import { FogPolicyError, reportError } from "./errors.js";
+import { openDashboardHelp } from "./help.js";
+import { logger } from "./logger.js";
 import {
   exportBackup,
   exportSelection,
@@ -25,13 +28,18 @@ import {
   getSceneExemptFlag,
   isSceneManaged
 } from "./policy-core.js";
-import { readPolicySettings } from "./settings.js";
+import {
+  readDashboardWindowState,
+  readPolicySettings,
+  writeDashboardWindowState
+} from "./settings.js";
 import { FixedRowVirtualList } from "./ui/virtual-list.js";
 
 const { ApplicationV2, DialogV2, HandlebarsApplicationMixin } = foundry.applications.api;
-const SCENE_ROW_HEIGHT = 48;
+const SCENE_ROW_HEIGHT = 56;
 const FOLDER_ROW_HEIGHT = 34;
 const SEARCH_DEBOUNCE_MS = 120;
+const WINDOW_STATE_SAVE_DEBOUNCE_MS = 250;
 
 function createElement(tagName, className, text) {
   const element = document.createElement(tagName);
@@ -55,7 +63,7 @@ function getCheckedValues(root, selector) {
 export class FogPolicyDashboard extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     id: `${MODULE_ID}-dashboard`,
-    classes: [MODULE_ID, "standard-form"],
+    classes: [MODULE_ID, "runyth-fog-policy-dashboard-window", "standard-form"],
     position: {
       width: 1040,
       height: 820
@@ -63,9 +71,22 @@ export class FogPolicyDashboard extends HandlebarsApplicationMixin(ApplicationV2
     window: {
       title: "RUNYTH_FOG_POLICY.Dashboard.Title",
       icon: "fa-solid fa-eye-slash",
-      resizable: true
+      resizable: true,
+      controls: [
+        {
+          action: "help",
+          icon: "fa-solid fa-circle-question",
+          label: "RUNYTH_FOG_POLICY.Dashboard.Help"
+        }
+      ]
     },
     actions: {
+      help() {
+        return openDashboardHelp();
+      },
+      toggleFolders() {
+        return this._toggleFolderPanel();
+      },
       audit() {
         return this._refreshData({ resetScroll: false });
       },
@@ -117,6 +138,31 @@ export class FogPolicyDashboard extends HandlebarsApplicationMixin(ApplicationV2
     }
   };
 
+  constructor(options = {}) {
+    let savedState = null;
+    try {
+      savedState = readDashboardWindowState();
+    } catch (error) {
+      logger.warn("Could not read saved dashboard geometry [RFP-UI-POSITION-READ].", error);
+    }
+
+    const restoredPosition = normalizeWindowState(savedState, {
+      viewportWidth: globalThis.innerWidth,
+      viewportHeight: globalThis.innerHeight
+    });
+
+    super({
+      ...options,
+      position: {
+        ...restoredPosition,
+        ...(options.position ?? {})
+      }
+    });
+
+    this._lastWindowState = extractWindowState(restoredPosition);
+    this._lastPersistedWindowState = savedState ? JSON.stringify(savedState) : null;
+  }
+
   _selectedSceneIds = new Set();
   _records = [];
   _recordById = new Map();
@@ -127,6 +173,12 @@ export class FogPolicyDashboard extends HandlebarsApplicationMixin(ApplicationV2
   _folderVirtualList = null;
   _searchTimer = null;
   _folderSearchTimer = null;
+  _windowStateTimer = null;
+  _windowStateWrite = Promise.resolve();
+  _lastWindowState = null;
+  _lastPersistedWindowState = null;
+  _windowStateSaveWarned = false;
+  _foldersExpanded = false;
   _busy = false;
   _settings = null;
   _auditSummary = null;
@@ -159,14 +211,93 @@ export class FogPolicyDashboard extends HandlebarsApplicationMixin(ApplicationV2
     this._bindDashboardEvents();
     this._createVirtualLists();
     this._applyFilters({ resetScroll: false });
+    this._syncFolderPanelState();
     this._updateSummary();
+  }
+
+  _onPosition(position) {
+    super._onPosition(position);
+    if (this.minimized) return;
+
+    const state = extractWindowState(position);
+    if (!state) return;
+    this._lastWindowState = state;
+    this._scheduleWindowStateSave();
+  }
+
+  async _preClose(options) {
+    await this._flushWindowStateSave();
+    return super._preClose(options);
   }
 
   _onClose(options) {
     this._destroyVirtualLists();
     if (this._searchTimer !== null) clearTimeout(this._searchTimer);
     if (this._folderSearchTimer !== null) clearTimeout(this._folderSearchTimer);
+    if (this._windowStateTimer !== null) clearTimeout(this._windowStateTimer);
     return super._onClose(options);
+  }
+
+  _scheduleWindowStateSave() {
+    if (this._windowStateTimer !== null) clearTimeout(this._windowStateTimer);
+    this._windowStateTimer = setTimeout(() => {
+      this._windowStateTimer = null;
+      void this._persistWindowState();
+    }, WINDOW_STATE_SAVE_DEBOUNCE_MS);
+  }
+
+  async _persistWindowState() {
+    const state = this._lastWindowState ?? extractWindowState(this.position);
+    if (!state) return;
+
+    const serialized = JSON.stringify(state);
+    if (serialized === this._lastPersistedWindowState) return;
+
+    const write = async () => {
+      try {
+        await writeDashboardWindowState(state);
+        this._lastPersistedWindowState = serialized;
+      } catch (error) {
+        logger.warn("Could not save dashboard geometry [RFP-UI-POSITION-SAVE].", error);
+        if (!this._windowStateSaveWarned && globalThis.ui?.notifications) {
+          this._windowStateSaveWarned = true;
+          ui.notifications.warn(game.i18n.localize("RUNYTH_FOG_POLICY.Notifications.WindowStateSaveFailed"));
+        }
+      }
+    };
+
+    this._windowStateWrite = this._windowStateWrite.then(write, write);
+    await this._windowStateWrite;
+  }
+
+  async _flushWindowStateSave() {
+    if (this._windowStateTimer !== null) {
+      clearTimeout(this._windowStateTimer);
+      this._windowStateTimer = null;
+    }
+    await this._persistWindowState();
+  }
+
+  _toggleFolderPanel() {
+    this._foldersExpanded = !this._foldersExpanded;
+    this._syncFolderPanelState();
+  }
+
+  _syncFolderPanelState() {
+    const panel = this.element?.querySelector?.("[data-folder-panel]");
+    const button = this.element?.querySelector?.('[data-action="toggleFolders"]');
+    if (panel) panel.hidden = !this._foldersExpanded;
+    if (button) button.setAttribute("aria-expanded", String(this._foldersExpanded));
+    if (this._foldersExpanded) this._folderVirtualList?.render();
+    this._updateFolderToggleSummary();
+  }
+
+  _updateFolderToggleSummary() {
+    const badge = this.element?.querySelector?.("[data-folder-selected-count]");
+    if (!badge) return;
+    const count = this._filters.folderIds.size;
+    badge.textContent = String(count);
+    badge.hidden = count === 0;
   }
 
   _rebuildIndexes() {
@@ -329,6 +460,7 @@ export class FogPolicyDashboard extends HandlebarsApplicationMixin(ApplicationV2
       if (!id) return;
       if (input.checked) this._filters.folderIds.add(id);
       else this._filters.folderIds.delete(id);
+      this._updateFolderToggleSummary();
       this._applyFilters();
     });
   }
@@ -361,16 +493,24 @@ export class FogPolicyDashboard extends HandlebarsApplicationMixin(ApplicationV2
       "scene-folder-path",
       record.folderPath || game.i18n.localize("RUNYTH_FOG_POLICY.Dashboard.Unfoldered")
     );
+    const compactMeta = createElement(
+      "span",
+      "scene-compact-meta",
+      game.i18n.format("RUNYTH_FOG_POLICY.Dashboard.CompactMeta", {
+        fog: game.i18n.localize(record.exploration ? "RUNYTH_FOG_POLICY.Common.Enabled" : "RUNYTH_FOG_POLICY.Common.Disabled"),
+        status: statusLabel(record)
+      })
+    );
     name.title = record.name;
     folder.title = record.folderPath || folder.textContent;
-    nameCell.append(name, folder);
+    nameCell.append(name, folder, compactMeta);
 
     const fogCell = createElement(
       "div",
-      "scene-cell",
+      "scene-cell scene-fog-cell",
       game.i18n.localize(record.exploration ? "RUNYTH_FOG_POLICY.Common.Enabled" : "RUNYTH_FOG_POLICY.Common.Disabled")
     );
-    const statusCell = createElement("div", "scene-cell", statusLabel(record));
+    const statusCell = createElement("div", "scene-cell scene-status-cell", statusLabel(record));
     const actionCell = createElement("div", "scene-cell scene-action-cell");
 
     const button = createElement(
@@ -777,6 +917,7 @@ export class FogPolicyDashboard extends HandlebarsApplicationMixin(ApplicationV2
     if (descendants) descendants.checked = true;
     const selectedOnly = root.querySelector('[data-filter="selected-only"]');
     if (selectedOnly) selectedOnly.checked = false;
+    this._updateFolderToggleSummary();
     this._applyFilters({ resetScroll: true });
   }
 }

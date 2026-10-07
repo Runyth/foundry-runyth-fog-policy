@@ -1,7 +1,7 @@
 <section class="runyth-fog-policy-dashboard">
   <header class="policy-summary">
     <div class="summary-heading">
-      <div>
+      <div class="summary-copy">
         <h2>{{localize policyStatusKey}}</h2>
         <p>{{localize "RUNYTH_FOG_POLICY.Dashboard.Intro"}}</p>
       </div>
@@ -30,65 +30,70 @@
     <button type="button" class="danger" data-action="purgeSelected" data-requires-selection><i class="fa-solid fa-eraser" aria-hidden="true"></i>{{localize "RUNYTH_FOG_POLICY.Dashboard.PurgeSelected"}}</button>
   </nav>
 
-  <div class="dashboard-workspace">
-    <aside class="filter-panel" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.Filters'}}">
-      <section class="filter-section">
-        <div class="section-heading">
-          <h3>{{localize "RUNYTH_FOG_POLICY.Dashboard.Search"}}</h3>
-          <button type="button" class="icon-button" data-action="resetFilters" title="{{localize 'RUNYTH_FOG_POLICY.Dashboard.ResetFilters'}}"><i class="fa-solid fa-filter-circle-xmark" aria-hidden="true"></i></button>
-        </div>
-        <input type="search" data-filter="scene-search" placeholder="{{localize 'RUNYTH_FOG_POLICY.Dashboard.SearchPlaceholder'}}" autocomplete="off" spellcheck="false">
-        <p class="microcopy">{{localize "RUNYTH_FOG_POLICY.Dashboard.SearchHelp"}}</p>
-      </section>
-
-      <section class="filter-section filter-options-grid">
-        <fieldset>
-          <legend>{{localize "RUNYTH_FOG_POLICY.Dashboard.StatusLabel"}}</legend>
-          <label><input type="checkbox" data-filter-group="status" value="compliant"> {{localize "RUNYTH_FOG_POLICY.Dashboard.Status.compliant"}}</label>
-          <label><input type="checkbox" data-filter-group="status" value="nonCompliant"> {{localize "RUNYTH_FOG_POLICY.Dashboard.Status.nonCompliant"}}</label>
-          <label><input type="checkbox" data-filter-group="status" value="exempt"> {{localize "RUNYTH_FOG_POLICY.Dashboard.Status.exempt"}}</label>
-        </fieldset>
-        <fieldset>
-          <legend>{{localize "RUNYTH_FOG_POLICY.Dashboard.FogExploration"}}</legend>
-          <label><input type="checkbox" data-filter-group="fog" value="enabled"> {{localize "RUNYTH_FOG_POLICY.Common.Enabled"}}</label>
-          <label><input type="checkbox" data-filter-group="fog" value="disabled"> {{localize "RUNYTH_FOG_POLICY.Common.Disabled"}}</label>
-          <label><input type="checkbox" data-filter="selected-only"> {{localize "RUNYTH_FOG_POLICY.Dashboard.SelectedOnly"}}</label>
-        </fieldset>
-      </section>
-
-      <section class="filter-section folder-picker">
-        <div class="section-heading">
-          <h3>{{localize "RUNYTH_FOG_POLICY.Dashboard.SceneFolders"}}</h3>
-          <span class="counter"><span data-folder-visible-count>0</span></span>
-        </div>
-        <input type="search" data-filter="folder-search" placeholder="{{localize 'RUNYTH_FOG_POLICY.Dashboard.FolderSearchPlaceholder'}}" autocomplete="off" spellcheck="false">
-        <label class="compact-check"><input type="checkbox" data-filter="include-descendants" checked> {{localize "RUNYTH_FOG_POLICY.Dashboard.IncludeDescendants"}}</label>
-        <div class="folder-virtual-list" data-virtual-list="folders" role="listbox" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.SceneFolders'}}"></div>
-      </section>
-
-      <section class="filter-section selection-actions">
-        <h3>{{localize "RUNYTH_FOG_POLICY.Dashboard.Selection"}}</h3>
-        <button type="button" data-action="selectFiltered">{{localize "RUNYTH_FOG_POLICY.Dashboard.SelectFiltered"}}</button>
-        <button type="button" data-action="invertFiltered">{{localize "RUNYTH_FOG_POLICY.Dashboard.InvertFiltered"}}</button>
-        <button type="button" data-action="clearSelection">{{localize "RUNYTH_FOG_POLICY.Dashboard.ClearSelection"}}</button>
-      </section>
-    </aside>
-
-    <main class="scene-panel">
-      <div class="scene-table-header" role="row">
-        <span></span>
-        <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Scene"}}</span>
-        <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.FogExploration"}}</span>
-        <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.StatusLabel"}}</span>
-        <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Exemption"}}</span>
+  <section class="scene-tools" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.Filters'}}">
+    <div class="search-toolbar">
+      <div class="search-control">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="search" data-filter="scene-search" placeholder="{{localize 'RUNYTH_FOG_POLICY.Dashboard.SearchPlaceholder'}}" autocomplete="off" spellcheck="false" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.Search'}}">
       </div>
-      <div class="scene-virtual-list" data-virtual-list="scenes" role="rowgroup" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.SceneList'}}"></div>
-    </main>
-  </div>
+      <button type="button" class="folder-toggle" data-action="toggleFolders" aria-expanded="false" aria-controls="runyth-fog-policy-folder-panel">
+        <i class="fa-solid fa-folder-tree" aria-hidden="true"></i>
+        <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.SceneFolders"}}</span>
+        <span class="count-badge" data-folder-selected-count hidden>0</span>
+      </button>
+      <button type="button" class="icon-button" data-action="resetFilters" title="{{localize 'RUNYTH_FOG_POLICY.Dashboard.ResetFilters'}}" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.ResetFilters'}}"><i class="fa-solid fa-filter-circle-xmark" aria-hidden="true"></i></button>
+    </div>
+
+    <div class="quick-filter-bar">
+      <span class="filter-group-label">{{localize "RUNYTH_FOG_POLICY.Dashboard.StatusLabel"}}</span>
+      <label class="filter-chip"><input type="checkbox" data-filter-group="status" value="compliant"> <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Status.compliant"}}</span></label>
+      <label class="filter-chip"><input type="checkbox" data-filter-group="status" value="nonCompliant"> <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Status.nonCompliant"}}</span></label>
+      <label class="filter-chip"><input type="checkbox" data-filter-group="status" value="exempt"> <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Status.exempt"}}</span></label>
+      <span class="filter-divider" aria-hidden="true"></span>
+      <span class="filter-group-label">{{localize "RUNYTH_FOG_POLICY.Dashboard.FogExploration"}}</span>
+      <label class="filter-chip"><input type="checkbox" data-filter-group="fog" value="enabled"> <span>{{localize "RUNYTH_FOG_POLICY.Common.Enabled"}}</span></label>
+      <label class="filter-chip"><input type="checkbox" data-filter-group="fog" value="disabled"> <span>{{localize "RUNYTH_FOG_POLICY.Common.Disabled"}}</span></label>
+      <label class="filter-chip"><input type="checkbox" data-filter="selected-only"> <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.SelectedOnly"}}</span></label>
+    </div>
+
+    <p class="search-help">{{localize "RUNYTH_FOG_POLICY.Dashboard.SearchHelp"}}</p>
+
+    <div class="folder-drawer" id="runyth-fog-policy-folder-panel" data-folder-panel hidden>
+      <div class="folder-toolbar">
+        <div class="search-control compact-search">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input type="search" data-filter="folder-search" placeholder="{{localize 'RUNYTH_FOG_POLICY.Dashboard.FolderSearchPlaceholder'}}" autocomplete="off" spellcheck="false">
+        </div>
+        <label class="compact-check"><input type="checkbox" data-filter="include-descendants" checked> {{localize "RUNYTH_FOG_POLICY.Dashboard.IncludeDescendants"}}</label>
+        <span class="folder-visible-summary"><span data-folder-visible-count>0</span> {{localize "RUNYTH_FOG_POLICY.Dashboard.FoldersVisible"}}</span>
+      </div>
+      <div class="folder-virtual-list" data-virtual-list="folders" role="listbox" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.SceneFolders'}}"></div>
+    </div>
+  </section>
+
+  <section class="selection-toolbar" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.Selection'}}">
+    <strong>{{localize "RUNYTH_FOG_POLICY.Dashboard.Selection"}}</strong>
+    <div class="selection-actions">
+      <button type="button" data-action="selectFiltered"><i class="fa-solid fa-check-double" aria-hidden="true"></i>{{localize "RUNYTH_FOG_POLICY.Dashboard.SelectFiltered"}}</button>
+      <button type="button" data-action="invertFiltered"><i class="fa-solid fa-right-left" aria-hidden="true"></i>{{localize "RUNYTH_FOG_POLICY.Dashboard.InvertFiltered"}}</button>
+      <button type="button" data-action="clearSelection"><i class="fa-solid fa-xmark" aria-hidden="true"></i>{{localize "RUNYTH_FOG_POLICY.Dashboard.ClearSelection"}}</button>
+    </div>
+  </section>
+
+  <main class="scene-panel">
+    <div class="scene-table-header" role="row">
+      <span></span>
+      <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Scene"}}</span>
+      <span class="scene-fog-header">{{localize "RUNYTH_FOG_POLICY.Dashboard.FogExploration"}}</span>
+      <span class="scene-status-header">{{localize "RUNYTH_FOG_POLICY.Dashboard.StatusLabel"}}</span>
+      <span>{{localize "RUNYTH_FOG_POLICY.Dashboard.Exemption"}}</span>
+    </div>
+    <div class="scene-virtual-list" data-virtual-list="scenes" role="rowgroup" aria-label="{{localize 'RUNYTH_FOG_POLICY.Dashboard.SceneList'}}"></div>
+  </main>
 
   <section class="transfer-panel">
-    <details open>
-      <summary>{{localize "RUNYTH_FOG_POLICY.Dashboard.BackupAndTransfer"}}</summary>
+    <details>
+      <summary><i class="fa-solid fa-box-archive" aria-hidden="true"></i>{{localize "RUNYTH_FOG_POLICY.Dashboard.BackupAndTransfer"}}</summary>
       <div class="transfer-grid">
         <fieldset>
           <legend>{{localize "RUNYTH_FOG_POLICY.Dashboard.ExportOptions"}}</legend>

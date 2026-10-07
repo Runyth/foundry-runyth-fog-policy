@@ -54,6 +54,16 @@ export function registerSettings() {
     true,
     "client"
   );
+
+  // Hidden client-only UI state. Keeping this device-local avoids moving a
+  // dashboard on one monitor/browser because another client uses a different
+  // resolution or desktop layout.
+  game.settings.register(MODULE_ID, SETTINGS.DASHBOARD_WINDOW_STATE, {
+    scope: "client",
+    config: false,
+    type: String,
+    default: ""
+  });
 }
 
 export function readPolicySettings() {
@@ -65,4 +75,21 @@ export function readPolicySettings() {
     allowSceneExemptions: game.settings.get(MODULE_ID, SETTINGS.ALLOW_EXEMPTIONS),
     notifyAutomaticRepair: game.settings.get(MODULE_ID, SETTINGS.NOTIFY_AUTOMATIC_REPAIR)
   });
+}
+
+export function readDashboardWindowState() {
+  const value = game.settings.get(MODULE_ID, SETTINGS.DASHBOARD_WINDOW_STATE);
+  if (typeof value !== "string" || value.length === 0) return null;
+
+  try {
+    const parsed = JSON.parse(value);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+export function writeDashboardWindowState(state) {
+  const value = state && typeof state === "object" ? JSON.stringify(state) : "";
+  return game.settings.set(MODULE_ID, SETTINGS.DASHBOARD_WINDOW_STATE, value);
 }

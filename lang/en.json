@@ -108,7 +108,10 @@
         "nonCompliant": "Needs repair",
         "exempt": "Exempt"
       },
-      "Cancelled": "{operation} cancelled."
+      "Cancelled": "{operation} cancelled.",
+      "Help": "Dashboard help",
+      "FoldersVisible": "folder entries visible",
+      "CompactMeta": "Fog: {fog} · {status}"
     },
     "Notifications": {
       "Repaired": "Runyth Fog Policy disabled Fog Exploration on {count} Scene(s).",
@@ -119,7 +122,56 @@
       "PartialFailure": "{operation} completed partially; {count} Scene(s) could not be updated. Review the console for isolated failures.",
       "RestoreConflicts": "{count} backup Fog Exploration value(s) could not be restored because the active strict policy would immediately prohibit them. Those Scenes remain policy-compliant.",
       "RestoreFailed": "{count} Scene backup update(s) failed after isolation. Review the console for details.",
-      "SelectionImported": "Selection import matched {matched} Scene(s); {unmatched} unmatched; {ambiguous} ambiguous."
+      "SelectionImported": "Selection import matched {matched} Scene(s); {unmatched} unmatched; {ambiguous} ambiguous.",
+      "WindowStateSaveFailed": "The dashboard position or size could not be saved on this client. Your policy data is unaffected; see the browser console for RFP-UI-POSITION-SAVE details."
+    },
+    "Help": {
+      "Title": "Runyth Fog Policy — Dashboard Help",
+      "Heading": "Using the Fog Policy Dashboard",
+      "Intro": "The dashboard is designed for fast bulk work: narrow the Scene list, select the intended Scenes, then run one policy action. Search, quick filters, and the folder tree combine rather than replacing one another.",
+      "Contents": "Help sections",
+      "Workflow": {
+        "Title": "Recommended workflow",
+        "Step1": "Use the search field and quick filters to narrow the Scene list.",
+        "Step2": "Open Scene Folders only when folder scoping is useful. Folder selection can include all descendants.",
+        "Step3": "Use Select all filtered, Invert filtered selection, or individual Scene checkboxes to build the exact target set.",
+        "Step4": "Run Repair, Exempt, Manage, Purge, or a backup/import-export operation on that target set."
+      },
+      "Filters": {
+        "Title": "Search and filters",
+        "Body": "All search terms use AND semantics. Quotes keep multi-word values together. Quick filters and Scene-folder filters are applied in addition to the text query.",
+        "Syntax": "Syntax",
+        "Meaning": "Matches",
+        "Name": "Scene names containing the value.",
+        "Folder": "The full hierarchical Scene-folder path.",
+        "Status": "Policy status such as compliant, repair/non-compliant, or exempt.",
+        "Fog": "Fog Exploration on/off state.",
+        "Exempt": "Whether the Scene is exempt from the policy.",
+        "Id": "Exact or partial Scene ID.",
+        "Folders": "The Scene Folders button opens a virtualized hierarchical list. The list is safe for large folder trees and can be searched independently. \"Include nested folders\" expands selected folders to all descendants."
+      },
+      "Actions": {
+        "Title": "Bulk actions",
+        "Repair": "Disables Fog Exploration on the selected managed Scenes. Failed Scene updates are isolated so one bad Scene does not discard successful updates.",
+        "Exempt": "Marks the selected Scenes as policy exemptions when exemptions are enabled.",
+        "Manage": "Removes exemptions so the strict policy applies to the selected Scenes again.",
+        "Purge": "Permanently deletes stored FogExploration records for the selected Scenes and users. This is destructive and separate from merely disabling Fog Exploration."
+      },
+      "Transfer": {
+        "Title": "Backup, import/export, and selection transfer",
+        "Body": "Expand the Backup/import-export section only when needed. Export targets can be the selected Scenes or all currently filtered Scenes.",
+        "Backup": "Backup files can include Scene policy state and optional world policy settings.",
+        "Selection": "Selection files contain Scene identity/folder metadata only and never change Scene settings by themselves.",
+        "CrossWorld": "Same-world imports prefer Scene IDs. Cross-world imports only use a unique exact name + folder-path fallback; ambiguous Scenes are never guessed."
+      },
+      "Purge": {
+        "Title": "Purge safety",
+        "Body": "A policy backup can restore Fog Exploration settings and exemptions, but it cannot reconstruct Foundry fog textures after FogExploration records are purged. Use a real Foundry World/data backup when historical explored-map data may need to be recovered."
+      },
+      "Window": {
+        "Title": "Window size and position",
+        "Body": "Dashboard size and position are stored as a client-only preference. They are restored on the same browser/client and clamped to the current viewport so a monitor or resolution change cannot strand the window off-screen."
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 export const MODULE_ID = "runyth-fog-policy";
 export const MODULE_TITLE = "Runyth Fog Policy";
-export const MODULE_VERSION = "1.0.1";
+export const MODULE_VERSION = "1.0.2";
 
 export const SETTINGS = Object.freeze({
   ENABLED: "enabled",
@@ -8,7 +8,8 @@ export const SETTINGS = Object.freeze({
   ENFORCE_CREATES: "enforceCreates",
   ENFORCE_UPDATES: "enforceUpdates",
   ALLOW_EXEMPTIONS: "allowSceneExemptions",
-  NOTIFY_AUTOMATIC_REPAIR: "notifyAutomaticRepair"
+  NOTIFY_AUTOMATIC_REPAIR: "notifyAutomaticRepair",
+  DASHBOARD_WINDOW_STATE: "dashboardWindowState"
 });
 
 export const FLAGS = Object.freeze({
