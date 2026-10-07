@@ -1,7 +1,7 @@
 {
   "module": "runyth-fog-policy",
-  "version": "1.0.1",
-  "validationDate": "2026-10-06",
+  "version": "1.0.2",
+  "validationDate": "2026-10-07",
   "toolchain": {
     "node": "22.16.0",
     "npm": "10.9.2",
@@ -16,27 +16,29 @@
     "manifest": "passed",
     "tests": {
       "result": "passed",
-      "passed": 34,
+      "passed": 43,
       "failed": 0
     },
+    "dashboardGeometry": "passed",
+    "dashboardUxStaticGuards": "passed",
     "scaleTest": {
       "result": "passed",
       "scenes": 10000,
       "folders": 500,
-      "recordedMillisecondsApprox": 45
+      "recordedMillisecondsApprox": 57
     },
     "build": "passed",
     "archives": "passed",
     "sourceGitHistory": "passed",
     "docsExcludeModuleJson": "passed",
     "gitFsck": "passed",
-    "freshSourceRebuild": "passed",
-    "determinism": "passed",
     "dependencyAudit": {
       "result": "passed",
       "vulnerabilities": 0,
       "thirdPartyDependencies": 0
-    }
+    },
+    "finalTaggedFreshSourceRebuild": "pending-post-tag",
+    "finalTaggedDeterminism": "pending-post-tag"
   },
   "liveFoundryV13": "not-performed"
 }
