@@ -17,7 +17,7 @@ const records = [
 
 test("backup contains only explicit policy state for selected Scenes", () => {
   const backup = buildBackupData({
-    moduleVersion: "1.0.1",
+    moduleVersion: "1.0.2",
     world: { id: "world", title: "World" },
     scenes: records,
     settings: { enabled: true },
@@ -32,7 +32,7 @@ test("backup contains only explicit policy state for selected Scenes", () => {
 
 test("selection export omits mutable policy state", () => {
   const selection = buildSelectionData({
-    moduleVersion: "1.0.1",
+    moduleVersion: "1.0.2",
     world: { id: "world", title: "World" },
     scenes: records
   });
@@ -84,7 +84,7 @@ test("import validation rejects malformed Scene entries before mutation", () => 
     validateImportData({
       schema: BACKUP_SCHEMA,
       schemaVersion: DATA_SCHEMA_VERSION,
-      moduleVersion: "1.0.1",
+      moduleVersion: "1.0.2",
       world: { id: "world", title: "World" },
       scenes: [{ id: 42, name: "Invalid", folderPath: "" }]
     })
