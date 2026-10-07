@@ -115,4 +115,4 @@ Operational failures use explicit `RFP-*` error codes where the module can class
 
 ## Stability
 
-Methods documented here are the supported integration surface for v1.0.1. Internal files and non-exported helpers remain implementation details.
+Methods documented here are the supported integration surface for v1.0.2. Internal files and non-exported helpers remain implementation details.

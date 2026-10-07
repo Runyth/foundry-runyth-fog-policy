@@ -11,6 +11,9 @@
 | All users, no player noise | World policy; active-GM automatic repair; routine notifications GM-side | Manual checklist |
 | Per-Scene exceptions | `flags.runyth-fog-policy.exempt` + bulk exemption APIs | Unit tests + manual checklist |
 | Convenient bulk control | GM-only ApplicationV2 dashboard with selection-oriented operations | Static validation + manual checklist |
+| Persistent dashboard geometry | Hidden client-scope setting + ApplicationV2 `_onPosition` debounce + `_preClose` flush + viewport clamping | Window-state unit tests + static validation + manual checklist |
+| Responsive dashboard layout | Flat search/quick-filter/selection workflow, on-demand folder drawer, responsive Scene metadata | Static UI tests + manual checklist |
+| In-app dashboard help | ApplicationV2 window header control + separate localized Help Application | Static validation + localization parity + manual checklist |
 | Scene search | Cached normalized Scene index + AND query parser with quoted text and `name/folder/status/fog/exempt/id` fields | Unit tests |
 | Folder search/selection | Cached hierarchy/path index, multiple folder selection, optional descendants | Unit tests + manual checklist |
 | Scalable hierarchical controls | Windowed Scene and folder virtual lists; bounded scroll containers; no large native select controls | Source audit + manual checklist |

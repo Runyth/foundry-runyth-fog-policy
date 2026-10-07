@@ -48,6 +48,22 @@ Automated tests cannot instantiate a real Foundry browser/server runtime. Perfor
 - [ ] Confirm there are no costly list-entry animations or transitions while filtering, scrolling, or selecting.
 - [ ] Confirm keyboard focus remains visible and controls remain usable at browser zoom levels 80%, 100%, 125%, and 150%.
 
+## Dashboard window and responsive UX
+
+- [ ] Open the dashboard, move it, resize it, close it, and reopen it; confirm `left`, `top`, `width`, and `height` are restored.
+- [ ] Reload the browser/World and confirm the same client restores the saved geometry.
+- [ ] Move/resize the dashboard on a large or secondary display, then reopen with a smaller viewport and confirm the window is clamped fully reachable on-screen.
+- [ ] Minimize and restore the dashboard, then close/reopen it; confirm minimized geometry does not replace the last useful full-size geometry.
+- [ ] Resize the dashboard to a moderately narrow width and confirm the filter sidebar is absent, Search remains usable, and the Scene list remains the dominant workspace.
+- [ ] Confirm the summary counters wrap cleanly instead of overflowing.
+- [ ] Confirm Scene Folders is closed initially and opens/closes without clearing selected folder filters.
+- [ ] Confirm the folder drawer remains a virtualized, scrollable hierarchy and renders correctly after opening from the hidden state.
+- [ ] Confirm backup/import-export is collapsed initially and expands without resizing the Scene list incorrectly.
+- [ ] At narrow widths, confirm redundant Fog/Status columns hide and equivalent compact metadata appears beneath the Scene name.
+- [ ] Confirm the dashboard title-bar Help control opens one separate Dashboard Help window and repeated use brings the existing help window forward rather than spawning unbounded duplicates.
+- [ ] Verify all Help sections and search examples render in both English and German.
+- [ ] Simulate a failed client-setting write if possible and confirm policy actions continue working while one concise warning plus detailed console diagnostics are produced.
+
 ## Search and filtering
 
 - [ ] Search Scene names with ordinary text.

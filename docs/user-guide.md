@@ -15,7 +15,9 @@ After module activation and World reload:
 
 Open **Game Settings → Configure Settings → Module Settings → Runyth Fog Policy → Open Fog Policy Dashboard**.
 
-The dashboard is designed around filtering first and applying bulk actions second. Both the Scene list and Scene-folder hierarchy are windowed/virtualized, so large Worlds do not create one DOM row per Scene/folder.
+The dashboard is designed around **filter → select → act**. Search and quick filters stay in one compact full-width toolbar, the Scene list receives the remaining workspace, and the Scene-folder hierarchy opens only when requested. Both Scene and folder lists are windowed/virtualized, so large Worlds do not create one DOM row per Scene/folder.
+
+The dashboard remembers its size and position on the current browser/client. Saved geometry is clamped to the active viewport before reuse, preventing an old multi-monitor position from reopening the window off-screen.
 
 ### Search
 
@@ -47,9 +49,14 @@ Unknown field prefixes remain literal text rather than silently broadening the q
 
 ### Folder filtering
 
-The folder picker is a searchable, scrollable hierarchy. Select one or more folders and choose whether descendant folders are included. The **Unfoldered** pseudo-entry targets only Scenes that have no folder.
+Press **Scene Folders** to open the full-width folder drawer. The folder picker is a searchable, scrollable hierarchy. Select one or more folders and choose whether descendant folders are included. The **Unfoldered** pseudo-entry targets only Scenes that have no folder.
 
-Folder search retains matching folders together with their ancestor context so deep matches remain understandable.
+Folder search retains matching folders together with their ancestor context so deep matches remain understandable. Closing the drawer does not clear folder selections.
+
+
+### Dashboard help
+
+Use the question-mark **Help** control in the dashboard title bar to open the separate Dashboard Help window. It explains the recommended workflow, structured search syntax, folder filtering, bulk actions, backup/import-export behavior, purge safety, and window persistence without requiring external documentation.
 
 ### Bulk selection
 
@@ -89,7 +96,7 @@ If you disable **Allow per-Scene exemptions**, existing exemption flags are reta
 
 ## Policy backups
 
-Under **Backup & transfer**, choose whether export should use:
+Expand **Backup, import/export, and selection transfer** when needed, then choose whether export should use:
 
 - selected Scenes; or
 - every Scene matching the current filters.

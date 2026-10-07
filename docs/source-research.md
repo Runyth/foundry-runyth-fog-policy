@@ -1,6 +1,6 @@
 # Foundry v13 API Research
 
-Research date: 2026-10-06.
+Research date: 2026-10-07.
 
 ## Scene fog field
 
@@ -42,16 +42,20 @@ References:
 
 ## ApplicationV2
 
-The dashboard uses the v13 `ApplicationV2`/`HandlebarsApplicationMixin` framework. Rendering hooks are used to bind a small fixed shell, while large Scene/folder result sets are rendered through module-owned virtual lists rather than inserting every result row at once.
+The dashboard uses the v13 `ApplicationV2`/`HandlebarsApplicationMixin` framework. Rendering hooks are used to bind a small fixed shell, while large Scene/folder result sets are rendered through module-owned virtual lists rather than inserting every result row at once. ApplicationV2 exposes current `position`, `setPosition`, `_onPosition`, and an awaited `_preClose` lifecycle; v1.0.2 uses those public lifecycle points for debounced geometry persistence and close-time flushing.
+
+ApplicationV2 window configuration also supports `controls` entries with action/icon/label metadata. The dashboard Help action is registered through this native v13 header-control surface rather than modifying Foundry private frame internals.
 
 References:
 
 - <https://foundryvtt.com/api/v13/classes/foundry.applications.api.ApplicationV2.html>
 - <https://foundryvtt.com/api/v13/functions/foundry.applications.api.HandlebarsApplicationMixin.html>
+- <https://foundryvtt.com/api/v13/interfaces/foundry.applications.types.ApplicationWindowConfiguration.html>
+- <https://foundryvtt.com/api/v13/interfaces/foundry.applications.types.ApplicationHeaderControlsEntry.html>
 
 ## World settings
 
-`game.settings.register` supports world-scope settings, and `registerMenu` supports a restricted settings submenu.
+`game.settings.register` supports world- and client-scope settings, and `registerMenu` supports a restricted settings submenu. Client scope is appropriate for dashboard geometry because it is tied to the current device/browser display environment.
 
 Reference: <https://foundryvtt.com/api/v13/classes/foundry.helpers.ClientSettings.html>
 

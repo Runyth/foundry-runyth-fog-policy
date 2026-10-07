@@ -18,7 +18,7 @@ Purge discovers current Scene/User records through public loads plus currently a
 
 ## Purge cost
 
-Purge remains proportional to the number of targeted Scenes × current users because Foundry's public `FogExploration.load` API is keyed by Scene/User. v1.0.1 bounds concurrency and memory and allows selecting only the necessary Scenes, but cannot make the underlying number of required public lookups constant.
+Purge remains proportional to the number of targeted Scenes × current users because Foundry's public `FogExploration.load` API is keyed by Scene/User. v1.0.2 bounds concurrency and memory and allows selecting only the necessary Scenes, but cannot make the underlying number of required public lookups constant.
 
 ## Foundry v14+
 

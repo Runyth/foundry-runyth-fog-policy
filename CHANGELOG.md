@@ -2,6 +2,31 @@
 
 All notable changes to **Runyth Fog Policy** are documented here.
 
+## 1.0.2 - 2026-10-07
+
+### Added
+
+- Client-local dashboard window geometry persistence for `left`, `top`, `width`, and `height`.
+- Viewport-safe geometry restoration so display/resolution changes cannot strand the dashboard off-screen.
+- A Foundry ApplicationV2 title-bar Help control that opens a dedicated dashboard usage guide.
+- Responsive compact Scene-row metadata for narrower dashboard widths.
+- Dedicated window-state core tests and static UI regression tests.
+
+### Changed
+
+- Reworked the dashboard from a permanent filter sidebar into a flatter search/quick-filter/selection workflow.
+- Scene-folder filtering now opens as an on-demand full-width drawer while retaining its searchable virtualized hierarchy.
+- Backup/import-export controls are collapsed by default so they do not compete with the primary audit/selection workflow.
+- Summary cards use responsive auto-fit layout instead of a fixed seven-column row.
+- Scene table columns collapse intelligently at narrower widths while keeping Scene identity, folder context, status, and exemption control usable.
+- Window-position writes are debounced to avoid client-storage churn during drag/resize operations.
+
+### Fixed
+
+- Dashboard size and position now survive closing/reopening and client reloads on the same browser/client.
+- Saved window coordinates are sanitized before restore, preventing inaccessible off-screen windows after monitor topology, resolution, or browser viewport changes.
+- The dashboard no longer devotes a large permanent column to filters when the window is narrow.
+
 ## 1.0.1 - 2026-10-06
 
 ### Added

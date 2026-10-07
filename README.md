@@ -1,8 +1,8 @@
-# Runyth Fog Policy 1.0.1
+# Runyth Fog Policy 1.0.2
 
 **Runyth Fog Policy** is a Foundry VTT v13 module for enforcing a world-level Fog of War policy in which managed Scenes do **not** retain persistent Fog Exploration.
 
-Release 1.0.1 hardens the original policy engine and replaces the simple all-Scene dashboard with a scalable bulk-management interface designed for worlds containing thousands of Scenes and deeply nested Scene folders.
+Release 1.0.2 reworks the dashboard for smaller windows and faster navigation, fixes client-side window geometry persistence, and adds an in-app dashboard guide while retaining the scalable bulk-management and hardening work from 1.0.1.
 
 ## Core behavior
 
@@ -46,20 +46,25 @@ As a GM, open:
 
 **Game Settings → Configure Settings → Module Settings → Runyth Fog Policy → Open Fog Policy Dashboard**
 
-The v1.0.1 dashboard provides:
+The v1.0.2 dashboard provides:
 
+- client-local dashboard size/position persistence with viewport-safe restoration;
+- a flatter responsive layout optimized for smaller windows;
 - cached audit counters for total, managed, compliant, non-compliant, exempt, filtered, and selected Scenes;
 - free-text search with quoted terms;
 - structured query fields: `name:`, `folder:`, `status:`, `fog:`, `exempt:`, and `id:`;
 - status and Fog Exploration filters;
-- a searchable, scrollable hierarchical Scene-folder picker;
+- an on-demand searchable, scrollable hierarchical Scene-folder drawer;
 - optional inclusion of nested folders;
 - select filtered, invert filtered selection, and clear selection;
 - bulk repair, exemption, management, and stored-fog purge operations;
 - policy-state backup export/import;
-- lightweight Scene-selection export/import.
+- lightweight Scene-selection export/import;
+- an ApplicationV2 title-bar Help control that opens a dedicated localized dashboard guide.
 
-Both the Scene list and folder list are fixed-row virtualized. Only visible rows plus a small overscan buffer exist in the DOM. There are no dashboard animations or transitions that scale with list size.
+Both the Scene list and folder list are fixed-row virtualized. Only visible rows plus a small overscan buffer exist in the DOM. There are no dashboard animations or transitions that scale with list size. The folder drawer is hidden until requested, backup/import-export is collapsed by default, and narrow Scene rows switch to compact metadata rather than forcing a permanently wide table.
+
+Dashboard geometry is saved in a hidden **client-scope** setting. Dragging/resizing is debounced and the saved rectangle is clamped to the current viewport on restore, so a monitor or resolution change cannot reopen the dashboard off-screen.
 
 ## Bulk update resilience
 

@@ -2,7 +2,7 @@
 
 ## Foundry VTT
 
-Release 1.0.1 targets Foundry VTT v13 and declares:
+Release 1.0.2 targets Foundry VTT v13 and declares:
 
 ```text
 minimum: 13

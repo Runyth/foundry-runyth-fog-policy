@@ -15,13 +15,16 @@ Runyth Fog Policy turns a per-Scene Foundry configuration into a resilient world
 | `scripts/core/batch-core.js` | Bounded concurrency and split-on-failure batch isolation |
 | `scripts/core/filter-core.js` | Query normalization, structured search, cached filtering |
 | `scripts/core/scene-index-core.js` | Hierarchical folder index and cached Scene records |
+| `scripts/core/window-state-core.js` | Pure dashboard geometry extraction, validation, and viewport clamping |
 | `scripts/core/backup-core.js` | Backup/selection schemas, validation, cross-world matching |
 | `scripts/errors.js` | Classified operational errors and GM-facing reporting |
 | `scripts/services/backup-service.js` | Backup/selection import-export orchestration |
 | `scripts/services/file-service.js` | Bounded JSON file reading and downloads |
 | `scripts/ui/virtual-list.js` | Dependency-free fixed-row DOM virtualization |
-| `scripts/dashboard.js` | GM-only ApplicationV2 bulk-management dashboard |
-| `templates/dashboard.hbs` | Static dashboard shell only; large rows are virtualized |
+| `scripts/dashboard.js` | GM-only ApplicationV2 bulk-management dashboard, responsive UI state, geometry persistence |
+| `scripts/help.js` | Dedicated ApplicationV2 dashboard help window |
+| `templates/dashboard.hbs` | Flat responsive dashboard shell only; large rows are virtualized |
+| `templates/help.hbs` | Localized dashboard workflow/reference guide |
 | `styles/runyth-fog-policy.css` | Bounded-layout, animation-free dashboard styling |
 
 ## Enforcement flow
@@ -40,6 +43,26 @@ At `ready`, only Foundry's active GM performs automatic repair. Non-compliant up
 
 `createScene`/`updateScene` retain an active-GM defensive repair path for updates that bypassed the initiating client's pre-hook.
 
+## Dashboard window lifecycle
+
+Dashboard geometry is device-specific UI state and is stored in a hidden Foundry **client-scope** setting as JSON containing only stable `left`, `top`, `width`, and `height` values.
+
+ApplicationV2's public position lifecycle is used as follows:
+
+1. constructor reads and normalizes the client geometry before the first render;
+2. `_onPosition` captures non-minimized geometry;
+3. writes are debounced so drag/resize pointer movement does not produce one setting write per event;
+4. `_preClose` flushes the last stable geometry through the awaited close lifecycle;
+5. restore clamps geometry to the current viewport and leaves never-saved `left`/`top` undefined so Foundry can perform native first-open positioning.
+
+A failed client-setting write never blocks closing or policy operations; it is logged with `RFP-UI-POSITION-SAVE` and warned once to the user.
+
+## Dashboard information architecture
+
+The primary dashboard workflow is intentionally flat: status → actions → search/quick filters → optional folder drawer → selection toolbar → Scene list. Backup/import-export is secondary and collapsed by default. This avoids permanently nesting search, folder navigation, and selection controls inside a narrow sidebar.
+
+The Help action is registered through the v13 ApplicationV2 window-control mechanism and opens a separate localized help Application.
+
 ## Large-world dashboard architecture
 
 Foundry already holds world Scene documents client-side, so the module does not attempt to lazy-load Scene documents from the server. Instead it minimizes **derived work and DOM work**:
@@ -52,6 +75,8 @@ Foundry already holds world Scene documents client-side, so the module does not 
 6. Only visible rows plus overscan are rendered.
 7. Summary counters are cached; selecting one Scene does not rescan all Scenes.
 8. No list-row animation or transition is used.
+9. The hierarchical folder drawer is not displayed until requested.
+10. Window-geometry writes are debounced and independent of Scene-list rendering.
 
 This is the appropriate form of lazy rendering for Foundry's already-materialized World collections.
 

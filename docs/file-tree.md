@@ -14,10 +14,12 @@ runyth-fog-policy/
 │   ├── compatibility.md
 │   ├── file-tree.md
 │   ├── hardening-audit-1.0.1.md
+│   ├── dashboard-ux-audit-1.0.2.md
 │   ├── known-limitations.md
 │   ├── manual-test-checklist.md
 │   ├── release-notes-1.0.0.md
 │   ├── release-notes-1.0.1.md
+│   ├── release-notes-1.0.2.md
 │   ├── release-process.md
 │   ├── requirements-traceability.md
 │   ├── security-and-data.md
@@ -33,7 +35,8 @@ runyth-fog-policy/
 │   │   ├── backup-core.js
 │   │   ├── batch-core.js
 │   │   ├── filter-core.js
-│   │   └── scene-index-core.js
+│   │   ├── scene-index-core.js
+│   │   └── window-state-core.js
 │   ├── services/
 │   │   ├── backup-service.js
 │   │   └── file-service.js
@@ -41,6 +44,7 @@ runyth-fog-policy/
 │   │   └── virtual-list.js
 │   ├── constants.js
 │   ├── dashboard.js
+│   ├── help.js
 │   ├── errors.js
 │   ├── logger.js
 │   ├── main.js
@@ -50,7 +54,8 @@ runyth-fog-policy/
 ├── styles/
 │   └── runyth-fog-policy.css
 ├── templates/
-│   └── dashboard.hbs
+│   ├── dashboard.hbs
+│   └── help.hbs
 ├── tests/
 │   ├── backup-core.test.mjs
 │   ├── batch-core.test.mjs
@@ -59,7 +64,8 @@ runyth-fog-policy/
 │   ├── performance.test.mjs
 │   ├── policy-core.test.mjs
 │   ├── scene-index-core.test.mjs
-│   └── static-hardening.test.mjs
+│   ├── static-hardening.test.mjs
+│   └── window-state-core.test.mjs
 ├── tools/
 │   ├── build.mjs
 │   ├── lint.mjs
