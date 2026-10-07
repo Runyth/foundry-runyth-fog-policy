@@ -24,8 +24,8 @@ Validation date: **2026-10-07**
 | ZIP CRC/integrity checks | PASS |
 | npm dependency audit | PASS — 0 vulnerabilities, no third-party dependencies |
 | Git object integrity | PASS — `git fsck --full` |
-
-The final tagged release additionally requires a fresh source-ZIP extraction, clean Git/tag verification, a complete rebuild from that extraction, and byte-for-byte comparison of all three rebuilt ZIPs. Those checks are performed after this report is committed so the source archive can contain the exact recorded validation state.
+| Fresh source extraction/rebuild | PASS — clean `master`, exact `v1.0.2`, full check successful |
+| Deterministic rebuild comparison | PASS — all three release ZIPs reproduced byte-for-byte |
 
 ## Toolchain
 

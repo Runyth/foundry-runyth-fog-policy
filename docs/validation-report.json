@@ -37,8 +37,8 @@
       "vulnerabilities": 0,
       "thirdPartyDependencies": 0
     },
-    "finalTaggedFreshSourceRebuild": "pending-post-tag",
-    "finalTaggedDeterminism": "pending-post-tag"
+    "finalTaggedFreshSourceRebuild": "passed",
+    "finalTaggedDeterminism": "passed-all-three-byte-identical"
   },
   "liveFoundryV13": "not-performed"
 }
