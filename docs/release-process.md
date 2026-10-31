@@ -25,9 +25,9 @@ npm run release:verify
 For version `<version>`:
 
 ```text
-runyth-fog-policy-<version>.zip
-runyth-fog-policy-source-<version>.zip
-runyth-fog-policy-docs-<version>.zip
+runyth-fog-policy-v<version>-mod.zip
+runyth-fog-policy-v<version>-src.zip
+runyth-fog-policy-v<version>-doc.zip
 ```
 
 ### Installable ZIP

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Runyth. See the LICENSE file for rights and obligations.
 export const BACKUP_SCHEMA = "runyth-fog-policy-backup";
 export const SELECTION_SCHEMA = "runyth-fog-policy-selection";
 export const DATA_SCHEMA_VERSION = 1;

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Runyth. See the LICENSE file for rights and obligations.
 /**
  * Small dependency-free fixed-row virtualizer. It keeps DOM size bounded even
  * when the underlying collection contains thousands of rows.

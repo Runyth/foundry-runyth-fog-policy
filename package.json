@@ -1,6 +1,6 @@
 {
   "name": "runyth-fog-policy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "description": "Development and release tooling for the Runyth Fog Policy Foundry VTT module.",
@@ -13,7 +13,11 @@
     "check": "npm run lint && npm test && npm run build && npm run package && npm run release:verify"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.13.0 <27"
   },
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Runyth/foundry-runyth-fog-policy.git"
+  },
+  "license": "AGPL-3.0-or-later"
 }

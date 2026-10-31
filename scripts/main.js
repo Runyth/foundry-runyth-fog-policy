@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Runyth. See the LICENSE file for rights and obligations.
 import { MODULE_ID, MODULE_VERSION, SETTINGS } from "./constants.js";
 import { FogPolicyDashboard, registerDashboardMenu } from "./dashboard.js";
 import { reportError, requireGm } from "./errors.js";

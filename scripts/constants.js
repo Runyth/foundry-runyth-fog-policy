@@ -1,6 +1,8 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (C) 2026 Runyth. See the LICENSE file for rights and obligations.
 export const MODULE_ID = "runyth-fog-policy";
 export const MODULE_TITLE = "Runyth Fog Policy";
-export const MODULE_VERSION = "1.0.2";
+export const MODULE_VERSION = "1.0.3";
 
 export const SETTINGS = Object.freeze({
   ENABLED: "enabled",

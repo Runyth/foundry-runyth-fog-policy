@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 Runyth. See the LICENSE file for rights and obligations.
 from __future__ import annotations
 
 import hashlib
@@ -26,9 +28,11 @@ def main() -> int:
   manifest = json.loads((root / "module.json").read_text(encoding="utf-8"))
   version = manifest["version"]
   release_dir = root / "dist" / "releases"
-  runtime_zip = release_dir / f"runyth-fog-policy-{version}.zip"
-  source_zip = release_dir / f"runyth-fog-policy-source-{version}.zip"
-  docs_zip = release_dir / f"runyth-fog-policy-docs-{version}.zip"
+  runtime_zip = release_dir / f"runyth-fog-policy-v{version}-mod.zip"
+  source_zip = release_dir / f"runyth-fog-policy-v{version}-src.zip"
+  docs_zip = release_dir / f"runyth-fog-policy-v{version}-doc.zip"
+  source_root = f"runyth-fog-policy-v{version}-src"
+  doc_root = f"runyth-fog-policy-v{version}-doc"
 
   for path in (runtime_zip, source_zip, docs_zip):
     assert_true(path.is_file(), f"Missing release archive: {path}")
@@ -77,18 +81,19 @@ def main() -> int:
 
   with zipfile.ZipFile(source_zip) as zf:
     names = set(zf.namelist())
-    assert_true("runyth-fog-policy/.git/HEAD" in names, "Source ZIP lacks .git/HEAD.")
-    assert_true("runyth-fog-policy/.git/config" in names, "Source ZIP lacks portable Git config.")
-    git_config = zf.read("runyth-fog-policy/.git/config").decode("utf-8")
-    assert_true("filemode = false" in git_config, "Source ZIP Git config must ignore extractor file-mode loss.")
+    assert_true(f"{source_root}/.git/HEAD" in names, "Source ZIP lacks .git/HEAD.")
+    assert_true(f"{source_root}/.git/config" in names, "Source ZIP lacks portable Git config.")
+    git_config = zf.read(f"{source_root}/.git/config").decode("utf-8")
+    assert_true("filemode = true" in git_config, "Source ZIP Git config must use the closed publication set.")
+    assert_true("example.invalid" not in git_config, "Source ZIP Git config must not contain a placeholder identity.")
     assert_true(
-      any(name.startswith("runyth-fog-policy/.git/objects/") and not name.endswith("/") for name in names),
+      any(name.startswith(f"{source_root}/.git/objects/") and not name.endswith("/") for name in names),
       "Source ZIP lacks Git objects/history."
     )
-    assert_true("runyth-fog-policy/module.json" in names, "Source ZIP lacks module.json.")
+    assert_true(f"{source_root}/module.json" in names, "Source ZIP lacks module.json.")
     assert_true(not any("/dist/" in name for name in names), "Source ZIP incorrectly includes dist/.")
-    package_mode = (zf.getinfo("runyth-fog-policy/tools/package_release.py").external_attr >> 16) & 0o777
-    manifest_mode = (zf.getinfo("runyth-fog-policy/module.json").external_attr >> 16) & 0o777
+    package_mode = (zf.getinfo(f"{source_root}/tools/package_release.py").external_attr >> 16) & 0o777
+    manifest_mode = (zf.getinfo(f"{source_root}/module.json").external_attr >> 16) & 0o777
     assert_true(package_mode == 0o755, "Source ZIP lost tracked executable mode for package_release.py.")
     assert_true(manifest_mode == 0o644, "Source ZIP has a non-canonical mode for module.json.")
 
@@ -99,11 +104,11 @@ def main() -> int:
       "Documentation ZIP must not contain module.json."
     )
     assert_true(
-      "runyth-fog-policy-docs/docs/architecture.md" in names,
+      f"{doc_root}/docs/architecture.md" in names,
       "Documentation ZIP lacks architecture documentation."
     )
     assert_true(
-      "runyth-fog-policy-docs/docs/validation-report.md" in names,
+      f"{doc_root}/docs/validation-report.md" in names,
       "Documentation ZIP lacks validation report."
     )
 
@@ -112,7 +117,7 @@ def main() -> int:
     source_zip.name: sha256(source_zip),
     docs_zip.name: sha256(docs_zip)
   }
-  checksum_path = release_dir / "SHA256SUMS.txt"
+  checksum_path = release_dir / f"runyth-fog-policy-v{version}-SHA256SUMS.txt"
   checksum_path.write_text(
     "".join(f"{digest}  {name}\n" for name, digest in sums.items()),
     encoding="utf-8"

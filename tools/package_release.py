@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (C) 2026 Runyth. See the LICENSE file for rights and obligations.
 from __future__ import annotations
 
 import json
@@ -95,9 +97,11 @@ def main() -> int:
   runtime_dir = root / "dist" / "runyth-fog-policy"
   release_dir.mkdir(parents=True, exist_ok=True)
 
-  runtime_zip = release_dir / f"runyth-fog-policy-{version}.zip"
-  source_zip = release_dir / f"runyth-fog-policy-source-{version}.zip"
-  docs_zip = release_dir / f"runyth-fog-policy-docs-{version}.zip"
+  runtime_zip = release_dir / f"runyth-fog-policy-v{version}-mod.zip"
+  source_zip = release_dir / f"runyth-fog-policy-v{version}-src.zip"
+  docs_zip = release_dir / f"runyth-fog-policy-v{version}-doc.zip"
+  source_root = f"runyth-fog-policy-v{version}-src"
+  doc_root = f"runyth-fog-policy-v{version}-doc"
 
   for archive in (runtime_zip, source_zip, docs_zip):
     archive.unlink(missing_ok=True)
@@ -111,11 +115,15 @@ def main() -> int:
       return False
     if parts[0] in {"dist", "node_modules"}:
       return True
+    if parts[0] == ".git" and len(parts) > 1 and parts[1] in {"logs", "hooks", "objects/info"}:
+      return True
     if rel.as_posix() in {
       ".git/index",
       ".git/index.lock",
       ".git/packed-refs.lock",
-      ".git/config"
+      ".git/config",
+      ".git/FETCH_HEAD",
+      ".git/opencode"
     }:
       return True
     return any(part in {"__pycache__"} for part in parts) or rel.suffix in {".pyc"}
@@ -136,7 +144,7 @@ def main() -> int:
     add_tree(
       zf,
       root,
-      "runyth-fog-policy",
+      source_root,
       exclude=source_exclude,
       executable_for=lambda rel: rel.as_posix() in tracked_executables,
     )
@@ -157,7 +165,7 @@ def main() -> int:
         stderr=subprocess.PIPE,
       )
       zf.writestr(
-        zip_info("runyth-fog-policy/.git/index"),
+        zip_info(f"{source_root}/.git/index"),
         canonical_index.read_bytes(),
       )
 
@@ -168,15 +176,12 @@ def main() -> int:
     canonical_git_config = (
       "[core]\n"
       "\trepositoryformatversion = 0\n"
-      "\tfilemode = false\n"
+      "\tfilemode = true\n"
       "\tbare = false\n"
-      "\tlogallrefupdates = true\n"
-      "[user]\n"
-      "\tname = Runyth Release Bot\n"
-      "\temail = runyth@example.invalid\n"
+      "\tlogallrefupdates = false\n"
     )
     zf.writestr(
-      zip_info("runyth-fog-policy/.git/config"),
+      zip_info(f"{source_root}/.git/config"),
       canonical_git_config.encode("utf-8"),
     )
 
@@ -184,8 +189,8 @@ def main() -> int:
     add_selected(
       zf,
       root,
-      "runyth-fog-policy-docs",
-      ["README.md", "CHANGELOG.md", "LICENSE", "CONTRIBUTING.md", "docs"]
+      doc_root,
+      ["README.md", "CHANGELOG.md", "LICENSE", "CONTRIBUTING.md", "SECURITY.md", "docs"]
     )
 
   print(runtime_zip)
