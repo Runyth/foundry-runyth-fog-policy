@@ -2,6 +2,12 @@
 
 All notable changes to **Runyth Fog Policy** are documented here.
 
+## 1.0.5 - 2026-11-01
+
+### Fixed
+
+- Pointed the manifest `download` URL at the release's own `-mod` archive instead of the previous version's release path.
+
 ## 1.0.4 - 2026-10-31
 
 ### Fixed
