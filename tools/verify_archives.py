@@ -94,7 +94,7 @@ def main() -> int:
     assert_true(not any("/dist/" in name for name in names), "Source ZIP incorrectly includes dist/.")
     package_mode = (zf.getinfo(f"{source_root}/tools/package_release.py").external_attr >> 16) & 0o777
     manifest_mode = (zf.getinfo(f"{source_root}/module.json").external_attr >> 16) & 0o777
-    assert_true(package_mode == 0o755, "Source ZIP lost tracked executable mode for package_release.py.")
+    assert_true(package_mode == 0o644, "Source ZIP must not retain mount executable-bit noise.")
     assert_true(manifest_mode == 0o644, "Source ZIP has a non-canonical mode for module.json.")
 
   with zipfile.ZipFile(docs_zip) as zf:
