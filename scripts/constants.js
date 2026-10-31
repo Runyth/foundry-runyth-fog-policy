@@ -2,7 +2,7 @@
 // Copyright (C) 2026 Runyth. See the LICENSE file for rights and obligations.
 export const MODULE_ID = "runyth-fog-policy";
 export const MODULE_TITLE = "Runyth Fog Policy";
-export const MODULE_VERSION = "1.0.3";
+export const MODULE_VERSION = "1.0.4";
 
 export const SETTINGS = Object.freeze({
   ENABLED: "enabled",

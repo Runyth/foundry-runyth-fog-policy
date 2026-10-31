@@ -2,6 +2,12 @@
 
 All notable changes to **Runyth Fog Policy** are documented here.
 
+## 1.0.4 - 2026-10-31
+
+### Fixed
+
+- Stopped requiring mount executable bits in the source archive.
+
 ## 1.0.3 - 2026-10-31
 
 ### Changed
