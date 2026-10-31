@@ -2,6 +2,14 @@
 
 All notable changes to **Runyth Fog Policy** are documented here.
 
+## 1.0.3 - 2026-10-31
+
+### Changed
+
+- Licensed the program under AGPL-3.0-or-later.
+- Published install, source, and documentation archives as `-mod`, `-src`, and `-doc`.
+- Published the module from `foundry-runyth-fog-policy`.
+
 ## 1.0.2 - 2026-10-07
 
 ### Added
