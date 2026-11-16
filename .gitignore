@@ -3,3 +3,12 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+# --- Runyth template managed (begin) ---
+coverage/
+.nyc_output/
+.cache/
+.runyth-template-source/
+.env
+.env.*
+!.env.example
+# --- Runyth template managed (end) ---

@@ -1,25 +1,22 @@
 {
-  "id": "runyth-fog-policy",
-  "title": "Runyth Fog Policy",
-  "description": "World-level Fog of War policy enforcement for Foundry VTT v13 with resilient bulk Scene management, scalable filtering, persistent dashboard geometry, guided help, backup/import-export, strict Fog Exploration enforcement, and explicit stored-fog cleanup.",
-  "version": "1.0.6",
   "authors": [
     {
       "name": "Runyth",
       "url": "https://github.com/Runyth"
     }
   ],
+  "changelog": "CHANGELOG.md",
   "compatibility": {
+    "maximum": "13",
     "minimum": "13",
-    "verified": "13",
-    "maximum": "13"
+    "verified": "13"
   },
+  "description": "World-level Fog of War policy enforcement for Foundry VTT v13 with resilient bulk Scene management, scalable filtering, persistent dashboard geometry, guided help, backup/import-export, strict Fog Exploration enforcement, and explicit stored-fog cleanup.",
+  "download": "https://github.com/Runyth/foundry-runyth-fog-policy/releases/download/v1.0.6/runyth-fog-policy-v1.0.6-mod.zip",
   "esmodules": [
     "scripts/main.js"
   ],
-  "styles": [
-    "styles/runyth-fog-policy.css"
-  ],
+  "id": "runyth-fog-policy",
   "languages": [
     {
       "lang": "en",
@@ -33,9 +30,12 @@
     }
   ],
   "license": "LICENSE",
-  "readme": "README.md",
-  "url": "https://github.com/Runyth/foundry-runyth-fog-policy",
   "manifest": "https://github.com/Runyth/foundry-runyth-fog-policy/releases/latest/download/module.json",
-  "download": "https://github.com/Runyth/foundry-runyth-fog-policy/releases/download/v1.0.6/runyth-fog-policy-v1.0.6-mod.zip",
-  "changelog": "CHANGELOG.md"
+  "readme": "README.md",
+  "styles": [
+    "styles/runyth-fog-policy.css"
+  ],
+  "title": "Runyth Fog Policy",
+  "url": "https://github.com/Runyth/foundry-runyth-fog-policy",
+  "version": "1.0.6"
 }

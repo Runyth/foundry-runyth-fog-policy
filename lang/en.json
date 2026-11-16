@@ -1,176 +1,176 @@
 {
   "RUNYTH_FOG_POLICY": {
     "Common": {
-      "Enabled": "Enabled",
-      "Disabled": "Disabled"
-    },
-    "Settings": {
-      "Enabled": {
-        "Name": "Enable strict Fog Exploration policy",
-        "Hint": "When enabled, managed world Scenes must have Fog Exploration disabled."
-      },
-      "RepairOnReady": {
-        "Name": "Repair existing Scenes when the world loads",
-        "Hint": "The active GM performs an idempotent, batched repair after world startup."
-      },
-      "EnforceCreates": {
-        "Name": "Enforce on newly created and imported Scenes",
-        "Hint": "New world Scenes are persisted with Fog Exploration disabled, including Scenes imported from compendiums."
-      },
-      "EnforceUpdates": {
-        "Name": "Prevent managed Scenes from re-enabling Fog Exploration",
-        "Hint": "Attempts to enable Fog Exploration on a managed Scene are corrected before the update is stored."
-      },
-      "AllowExemptions": {
-        "Name": "Allow per-Scene exemptions",
-        "Hint": "Allows the dashboard to exempt selected world Scenes from the strict policy."
-      },
-      "NotifyAutomaticRepair": {
-        "Name": "Notify me after automatic repair",
-        "Hint": "Shows a GM notification when this client, as active GM, repairs Scenes at startup."
-      },
-      "Dashboard": {
-        "Name": "Fog Policy Dashboard",
-        "Label": "Open Fog Policy Dashboard",
-        "Hint": "Audit, filter, bulk-select, repair, back up, restore, exempt, and purge Scene Fog Exploration data."
-      }
+      "Disabled": "Disabled",
+      "Enabled": "Enabled"
     },
     "Dashboard": {
-      "Title": "Runyth Fog Policy",
-      "PolicyEnabled": "Strict Fog Exploration policy is enabled",
-      "PolicyDisabled": "Strict Fog Exploration policy is disabled",
-      "Intro": "Managed Scenes keep Fog Exploration disabled so players retain only current visibility instead of a permanent explored-map memory.",
       "Actions": "Fog policy actions",
-      "Total": "Total",
-      "Managed": "Managed",
-      "Compliant": "Compliant",
-      "NonCompliant": "Needs repair",
-      "Exempt": "Exempt",
-      "Visible": "Filtered",
-      "Selected": "Selected",
-      "Audit": "Refresh audit",
-      "RepairSelected": "Repair selected",
-      "RepairAll": "Repair all managed",
-      "ExemptSelected": "Exempt selected",
-      "ManageSelected": "Manage selected",
-      "PurgeSelected": "Purge selected",
-      "PurgeWarning": "Purging stored exploration permanently deletes saved FogExploration records for the chosen Scenes and users. Export a backup first when you may need to restore policy state.",
-      "PurgeConfirmTitle": "Purge stored Fog Exploration?",
-      "PurgeSelectedConfirmBody": "This permanently deletes stored Fog Exploration records for all users on {count} selected Scene(s). Continue?",
-      "Scene": "Scene",
-      "SceneList": "Filtered Scene list",
-      "FogExploration": "Fog Exploration",
-      "StatusLabel": "Policy status",
-      "Exemption": "Exemption",
       "AddExemption": "Add exemption",
-      "RemoveExemption": "Remove exemption",
-      "SelectScene": "Select Scene {name}",
-      "Unfoldered": "Unfoldered",
-      "Filters": "Scene filters",
-      "Search": "Search",
-      "SearchPlaceholder": "Search Scenes…",
-      "SearchHelp": "All terms must match. Quotes are supported. Field filters: name:, folder:, status:, fog:, exempt:, id:.",
-      "ResetFilters": "Reset all filters",
-      "SelectedOnly": "Selected only",
-      "SceneFolders": "Scene folders",
-      "FolderSearchPlaceholder": "Filter folder tree…",
-      "IncludeDescendants": "Include nested folders",
-      "Selection": "Bulk selection",
-      "SelectFiltered": "Select all filtered",
-      "InvertFiltered": "Invert filtered selection",
-      "ClearSelection": "Clear selection",
+      "Audit": "Refresh audit",
       "BackupAndTransfer": "Backup, import/export, and selection transfer",
-      "ExportOptions": "Export options",
-      "TargetSelected": "Selected Scenes",
-      "TargetFiltered": "All filtered Scenes",
-      "IncludeGlobalSettings": "Include world policy settings in backup",
+      "Cancelled": "{operation} cancelled.",
+      "ClearSelection": "Clear selection",
+      "CompactMeta": "Fog: {fog} · {status}",
+      "Completed": "{operation} completed.",
+      "Compliant": "Compliant",
+      "CreateSafetyBackup": "Download a pre-import safety backup",
+      "Exempt": "Exempt",
+      "ExemptSelected": "Exempt selected",
+      "Exemption": "Exemption",
       "ExportBackup": "Export backup",
+      "ExportOptions": "Export options",
       "ExportSelection": "Export selection",
+      "Failed": "{operation} failed. See the notification and console details.",
+      "Filters": "Scene filters",
+      "FogExploration": "Fog Exploration",
+      "FolderSearchPlaceholder": "Filter folder tree…",
+      "FoldersVisible": "folder entries visible",
+      "Help": "Dashboard help",
+      "ImportBackup": "Import backup",
+      "ImportBackupConfirmBody": "Matched: {matched}. Unmatched: {unmatched}. Ambiguous: {ambiguous}. Only matched Scenes can be changed. Continue with the selected import options?",
+      "ImportBackupConfirmTitle": "Restore Fog Policy backup?",
       "ImportBackupOptions": "Backup import options",
+      "ImportSelection": "Import selection",
+      "IncludeDescendants": "Include nested folders",
+      "IncludeGlobalSettings": "Include world policy settings in backup",
+      "Intro": "Managed Scenes keep Fog Exploration disabled so players retain only current visibility instead of a permanent explored-map memory.",
+      "InvertFiltered": "Invert filtered selection",
+      "ManageSelected": "Manage selected",
+      "Managed": "Managed",
+      "NonCompliant": "Needs repair",
+      "PolicyDisabled": "Strict Fog Exploration policy is disabled",
+      "PolicyEnabled": "Strict Fog Exploration policy is enabled",
+      "PurgeConfirmTitle": "Purge stored Fog Exploration?",
+      "PurgeSelected": "Purge selected",
+      "PurgeSelectedConfirmBody": "This permanently deletes stored Fog Exploration records for all users on {count} selected Scene(s). Continue?",
+      "PurgeWarning": "Purging stored exploration permanently deletes saved FogExploration records for the chosen Scenes and users. Export a backup first when you may need to restore policy state.",
+      "Ready": "Ready.",
+      "RemoveExemption": "Remove exemption",
+      "RepairAll": "Repair all managed",
+      "RepairSelected": "Repair selected",
+      "ReplaceSelection": "Replace current selection instead of adding",
+      "ResetFilters": "Reset all filters",
       "RestoreExemptions": "Restore Scene exemptions",
       "RestoreFogState": "Restore Fog Exploration state where policy permits",
       "RestoreGlobalSettings": "Restore included world policy settings",
-      "CreateSafetyBackup": "Download a pre-import safety backup",
+      "Scene": "Scene",
+      "SceneFolders": "Scene folders",
+      "SceneList": "Filtered Scene list",
+      "Search": "Search",
+      "SearchHelp": "All terms must match. Quotes are supported. Field filters: name:, folder:, status:, fog:, exempt:, id:.",
+      "SearchPlaceholder": "Search Scenes…",
+      "SelectFiltered": "Select all filtered",
       "SelectImportedScenes": "Select matched Scenes after import",
-      "ImportBackup": "Import backup",
-      "ImportBackupConfirmTitle": "Restore Fog Policy backup?",
-      "ImportBackupConfirmBody": "Matched: {matched}. Unmatched: {unmatched}. Ambiguous: {ambiguous}. Only matched Scenes can be changed. Continue with the selected import options?",
+      "SelectScene": "Select Scene {name}",
+      "Selected": "Selected",
+      "SelectedOnly": "Selected only",
+      "Selection": "Bulk selection",
       "SelectionTransfer": "Selection transfer",
-      "ReplaceSelection": "Replace current selection instead of adding",
-      "ImportSelection": "Import selection",
-      "TransferHelp": "Selection files contain Scene identity and folder-path metadata only; they do not change Scene settings.",
-      "Working": "{operation}…",
-      "Completed": "{operation} completed.",
-      "Failed": "{operation} failed. See the notification and console details.",
-      "Ready": "Ready.",
       "Status": {
         "compliant": "Compliant",
-        "nonCompliant": "Needs repair",
-        "exempt": "Exempt"
+        "exempt": "Exempt",
+        "nonCompliant": "Needs repair"
       },
-      "Cancelled": "{operation} cancelled.",
-      "Help": "Dashboard help",
-      "FoldersVisible": "folder entries visible",
-      "CompactMeta": "Fog: {fog} · {status}"
+      "StatusLabel": "Policy status",
+      "TargetFiltered": "All filtered Scenes",
+      "TargetSelected": "Selected Scenes",
+      "Title": "Runyth Fog Policy",
+      "Total": "Total",
+      "TransferHelp": "Selection files contain Scene identity and folder-path metadata only; they do not change Scene settings.",
+      "Unfoldered": "Unfoldered",
+      "Visible": "Filtered",
+      "Working": "{operation}…"
+    },
+    "Help": {
+      "Actions": {
+        "Exempt": "Marks the selected Scenes as policy exemptions when exemptions are enabled.",
+        "Manage": "Removes exemptions so the strict policy applies to the selected Scenes again.",
+        "Purge": "Permanently deletes stored FogExploration records for the selected Scenes and users. This is destructive and separate from merely disabling Fog Exploration.",
+        "Repair": "Disables Fog Exploration on the selected managed Scenes. Failed Scene updates are isolated so one bad Scene does not discard successful updates.",
+        "Title": "Bulk actions"
+      },
+      "Contents": "Help sections",
+      "Filters": {
+        "Body": "All search terms use AND semantics. Quotes keep multi-word values together. Quick filters and Scene-folder filters are applied in addition to the text query.",
+        "Exempt": "Whether the Scene is exempt from the policy.",
+        "Fog": "Fog Exploration on/off state.",
+        "Folder": "The full hierarchical Scene-folder path.",
+        "Folders": "The Scene Folders button opens a virtualized hierarchical list. The list is safe for large folder trees and can be searched independently. \"Include nested folders\" expands selected folders to all descendants.",
+        "Id": "Exact or partial Scene ID.",
+        "Meaning": "Matches",
+        "Name": "Scene names containing the value.",
+        "Status": "Policy status such as compliant, repair/non-compliant, or exempt.",
+        "Syntax": "Syntax",
+        "Title": "Search and filters"
+      },
+      "Heading": "Using the Fog Policy Dashboard",
+      "Intro": "The dashboard is designed for fast bulk work: narrow the Scene list, select the intended Scenes, then run one policy action. Search, quick filters, and the folder tree combine rather than replacing one another.",
+      "Purge": {
+        "Body": "A policy backup can restore Fog Exploration settings and exemptions, but it cannot reconstruct Foundry fog textures after FogExploration records are purged. Use a real Foundry World/data backup when historical explored-map data may need to be recovered.",
+        "Title": "Purge safety"
+      },
+      "Title": "Runyth Fog Policy — Dashboard Help",
+      "Transfer": {
+        "Backup": "Backup files can include Scene policy state and optional world policy settings.",
+        "Body": "Expand the Backup/import-export section only when needed. Export targets can be the selected Scenes or all currently filtered Scenes.",
+        "CrossWorld": "Same-world imports prefer Scene IDs. Cross-world imports only use a unique exact name + folder-path fallback; ambiguous Scenes are never guessed.",
+        "Selection": "Selection files contain Scene identity/folder metadata only and never change Scene settings by themselves.",
+        "Title": "Backup, import/export, and selection transfer"
+      },
+      "Window": {
+        "Body": "Dashboard size and position are stored as a client-only preference. They are restored on the same browser/client and clamped to the current viewport so a monitor or resolution change cannot strand the window off-screen.",
+        "Title": "Window size and position"
+      },
+      "Workflow": {
+        "Step1": "Use the search field and quick filters to narrow the Scene list.",
+        "Step2": "Open Scene Folders only when folder scoping is useful. Folder selection can include all descendants.",
+        "Step3": "Use Select all filtered, Invert filtered selection, or individual Scene checkboxes to build the exact target set.",
+        "Step4": "Run Repair, Exempt, Manage, Purge, or a backup/import-export operation on that target set.",
+        "Title": "Recommended workflow"
+      }
     },
     "Notifications": {
-      "Repaired": "Runyth Fog Policy disabled Fog Exploration on {count} Scene(s).",
       "AutomaticRepair": "Runyth Fog Policy automatically repaired {count} Scene(s).",
       "AutomaticRepairFailed": "Runyth Fog Policy could not complete its automatic Scene repair. Check the browser console for the RFP error details.",
-      "Purged": "Deleted {count} stored Fog Exploration record(s) across {scenes} Scene(s).",
-      "PurgePartial": "Purge deleted {deleted} record(s), but {failures} operation(s) could not be completed. Review the console before assuming the purge is complete.",
       "PartialFailure": "{operation} completed partially; {count} Scene(s) could not be updated. Review the console for isolated failures.",
+      "PurgePartial": "Purge deleted {deleted} record(s), but {failures} operation(s) could not be completed. Review the console before assuming the purge is complete.",
+      "Purged": "Deleted {count} stored Fog Exploration record(s) across {scenes} Scene(s).",
+      "Repaired": "Runyth Fog Policy disabled Fog Exploration on {count} Scene(s).",
       "RestoreConflicts": "{count} backup Fog Exploration value(s) could not be restored because the active strict policy would immediately prohibit them. Those Scenes remain policy-compliant.",
       "RestoreFailed": "{count} Scene backup update(s) failed after isolation. Review the console for details.",
       "SelectionImported": "Selection import matched {matched} Scene(s); {unmatched} unmatched; {ambiguous} ambiguous.",
       "WindowStateSaveFailed": "The dashboard position or size could not be saved on this client. Your policy data is unaffected; see the browser console for RFP-UI-POSITION-SAVE details."
     },
-    "Help": {
-      "Title": "Runyth Fog Policy — Dashboard Help",
-      "Heading": "Using the Fog Policy Dashboard",
-      "Intro": "The dashboard is designed for fast bulk work: narrow the Scene list, select the intended Scenes, then run one policy action. Search, quick filters, and the folder tree combine rather than replacing one another.",
-      "Contents": "Help sections",
-      "Workflow": {
-        "Title": "Recommended workflow",
-        "Step1": "Use the search field and quick filters to narrow the Scene list.",
-        "Step2": "Open Scene Folders only when folder scoping is useful. Folder selection can include all descendants.",
-        "Step3": "Use Select all filtered, Invert filtered selection, or individual Scene checkboxes to build the exact target set.",
-        "Step4": "Run Repair, Exempt, Manage, Purge, or a backup/import-export operation on that target set."
+    "Settings": {
+      "AllowExemptions": {
+        "Hint": "Allows the dashboard to exempt selected world Scenes from the strict policy.",
+        "Name": "Allow per-Scene exemptions"
       },
-      "Filters": {
-        "Title": "Search and filters",
-        "Body": "All search terms use AND semantics. Quotes keep multi-word values together. Quick filters and Scene-folder filters are applied in addition to the text query.",
-        "Syntax": "Syntax",
-        "Meaning": "Matches",
-        "Name": "Scene names containing the value.",
-        "Folder": "The full hierarchical Scene-folder path.",
-        "Status": "Policy status such as compliant, repair/non-compliant, or exempt.",
-        "Fog": "Fog Exploration on/off state.",
-        "Exempt": "Whether the Scene is exempt from the policy.",
-        "Id": "Exact or partial Scene ID.",
-        "Folders": "The Scene Folders button opens a virtualized hierarchical list. The list is safe for large folder trees and can be searched independently. \"Include nested folders\" expands selected folders to all descendants."
+      "Dashboard": {
+        "Hint": "Audit, filter, bulk-select, repair, back up, restore, exempt, and purge Scene Fog Exploration data.",
+        "Label": "Open Fog Policy Dashboard",
+        "Name": "Fog Policy Dashboard"
       },
-      "Actions": {
-        "Title": "Bulk actions",
-        "Repair": "Disables Fog Exploration on the selected managed Scenes. Failed Scene updates are isolated so one bad Scene does not discard successful updates.",
-        "Exempt": "Marks the selected Scenes as policy exemptions when exemptions are enabled.",
-        "Manage": "Removes exemptions so the strict policy applies to the selected Scenes again.",
-        "Purge": "Permanently deletes stored FogExploration records for the selected Scenes and users. This is destructive and separate from merely disabling Fog Exploration."
+      "Enabled": {
+        "Hint": "When enabled, managed world Scenes must have Fog Exploration disabled.",
+        "Name": "Enable strict Fog Exploration policy"
       },
-      "Transfer": {
-        "Title": "Backup, import/export, and selection transfer",
-        "Body": "Expand the Backup/import-export section only when needed. Export targets can be the selected Scenes or all currently filtered Scenes.",
-        "Backup": "Backup files can include Scene policy state and optional world policy settings.",
-        "Selection": "Selection files contain Scene identity/folder metadata only and never change Scene settings by themselves.",
-        "CrossWorld": "Same-world imports prefer Scene IDs. Cross-world imports only use a unique exact name + folder-path fallback; ambiguous Scenes are never guessed."
+      "EnforceCreates": {
+        "Hint": "New world Scenes are persisted with Fog Exploration disabled, including Scenes imported from compendiums.",
+        "Name": "Enforce on newly created and imported Scenes"
       },
-      "Purge": {
-        "Title": "Purge safety",
-        "Body": "A policy backup can restore Fog Exploration settings and exemptions, but it cannot reconstruct Foundry fog textures after FogExploration records are purged. Use a real Foundry World/data backup when historical explored-map data may need to be recovered."
+      "EnforceUpdates": {
+        "Hint": "Attempts to enable Fog Exploration on a managed Scene are corrected before the update is stored.",
+        "Name": "Prevent managed Scenes from re-enabling Fog Exploration"
       },
-      "Window": {
-        "Title": "Window size and position",
-        "Body": "Dashboard size and position are stored as a client-only preference. They are restored on the same browser/client and clamped to the current viewport so a monitor or resolution change cannot strand the window off-screen."
+      "NotifyAutomaticRepair": {
+        "Hint": "Shows a GM notification when this client, as active GM, repairs Scenes at startup.",
+        "Name": "Notify me after automatic repair"
+      },
+      "RepairOnReady": {
+        "Hint": "The active GM performs an idempotent, batched repair after world startup.",
+        "Name": "Repair existing Scenes when the world loads"
       }
     }
   }

@@ -1,44 +1,44 @@
 {
-  "module": "runyth-fog-policy",
-  "version": "1.0.2",
-  "validationDate": "2026-10-07",
-  "toolchain": {
-    "node": "22.16.0",
-    "npm": "10.9.2",
-    "python": "3.13.5",
-    "git": "2.47.3"
-  },
   "automated": {
-    "syntax": "passed",
-    "json": "passed",
-    "localizationParity": "passed",
-    "relativeImports": "passed",
-    "manifest": "passed",
-    "tests": {
-      "result": "passed",
-      "passed": 43,
-      "failed": 0
-    },
+    "archives": "passed",
+    "build": "passed",
     "dashboardGeometry": "passed",
     "dashboardUxStaticGuards": "passed",
-    "scaleTest": {
-      "result": "passed",
-      "scenes": 10000,
-      "folders": 500,
-      "recordedMillisecondsApprox": 57
-    },
-    "build": "passed",
-    "archives": "passed",
-    "sourceGitHistory": "passed",
-    "docsExcludeModuleJson": "passed",
-    "gitFsck": "passed",
     "dependencyAudit": {
       "result": "passed",
-      "vulnerabilities": 0,
-      "thirdPartyDependencies": 0
+      "thirdPartyDependencies": 0,
+      "vulnerabilities": 0
     },
+    "docsExcludeModuleJson": "passed",
+    "finalTaggedDeterminism": "passed-all-three-byte-identical",
     "finalTaggedFreshSourceRebuild": "passed",
-    "finalTaggedDeterminism": "passed-all-three-byte-identical"
+    "gitFsck": "passed",
+    "json": "passed",
+    "localizationParity": "passed",
+    "manifest": "passed",
+    "relativeImports": "passed",
+    "scaleTest": {
+      "folders": 500,
+      "recordedMillisecondsApprox": 57,
+      "result": "passed",
+      "scenes": 10000
+    },
+    "sourceGitHistory": "passed",
+    "syntax": "passed",
+    "tests": {
+      "failed": 0,
+      "passed": 43,
+      "result": "passed"
+    }
   },
-  "liveFoundryV13": "not-performed"
+  "liveFoundryV13": "not-performed",
+  "module": "runyth-fog-policy",
+  "toolchain": {
+    "git": "2.47.3",
+    "node": "22.16.0",
+    "npm": "10.9.2",
+    "python": "3.13.5"
+  },
+  "validationDate": "2026-10-07",
+  "version": "1.0.2"
 }

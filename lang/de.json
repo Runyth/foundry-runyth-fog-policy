@@ -1,176 +1,176 @@
 {
   "RUNYTH_FOG_POLICY": {
     "Common": {
-      "Enabled": "Aktiviert",
-      "Disabled": "Deaktiviert"
-    },
-    "Settings": {
-      "Enabled": {
-        "Name": "Strikte Nebelerkundungsrichtlinie aktivieren",
-        "Hint": "Wenn aktiviert, müssen verwaltete Weltszenen die Nebelerkundung deaktiviert haben."
-      },
-      "RepairOnReady": {
-        "Name": "Vorhandene Szenen beim Laden der Welt reparieren",
-        "Hint": "Der aktive SL führt nach dem Weltstart eine idempotente, gebündelte Reparatur durch."
-      },
-      "EnforceCreates": {
-        "Name": "Bei neu erstellten und importierten Szenen erzwingen",
-        "Hint": "Neue Weltszenen werden mit deaktivierter Nebelerkundung gespeichert, einschließlich aus Kompendien importierter Szenen."
-      },
-      "EnforceUpdates": {
-        "Name": "Erneutes Aktivieren der Nebelerkundung verhindern",
-        "Hint": "Versuche, die Nebelerkundung für eine verwaltete Szene zu aktivieren, werden vor dem Speichern korrigiert."
-      },
-      "AllowExemptions": {
-        "Name": "Ausnahmen pro Szene erlauben",
-        "Hint": "Erlaubt dem Dashboard, ausgewählte Weltszenen von der strikten Richtlinie auszunehmen."
-      },
-      "NotifyAutomaticRepair": {
-        "Name": "Nach automatischer Reparatur benachrichtigen",
-        "Hint": "Zeigt eine SL-Benachrichtigung, wenn dieser Client als aktiver SL beim Start Szenen repariert."
-      },
-      "Dashboard": {
-        "Name": "Nebelerkundungs-Dashboard",
-        "Label": "Nebelerkundungs-Dashboard öffnen",
-        "Hint": "Szenen prüfen, filtern, gesammelt auswählen, reparieren, sichern, wiederherstellen, ausnehmen und gespeicherte Nebelerkundung löschen."
-      }
+      "Disabled": "Deaktiviert",
+      "Enabled": "Aktiviert"
     },
     "Dashboard": {
-      "Title": "Runyth Fog Policy",
-      "PolicyEnabled": "Strikte Nebelerkundungsrichtlinie ist aktiviert",
-      "PolicyDisabled": "Strikte Nebelerkundungsrichtlinie ist deaktiviert",
-      "Intro": "Verwaltete Szenen behalten die Nebelerkundung deaktiviert, sodass Spieler nur die aktuelle Sicht statt einer dauerhaften Erinnerungskarte behalten.",
       "Actions": "Aktionen der Nebelerkundungsrichtlinie",
-      "Total": "Gesamt",
-      "Managed": "Verwaltet",
-      "Compliant": "Konform",
-      "NonCompliant": "Reparatur nötig",
-      "Exempt": "Ausgenommen",
-      "Visible": "Gefiltert",
-      "Selected": "Ausgewählt",
-      "Audit": "Prüfung aktualisieren",
-      "RepairSelected": "Ausgewählte reparieren",
-      "RepairAll": "Alle verwalteten reparieren",
-      "ExemptSelected": "Ausgewählte ausnehmen",
-      "ManageSelected": "Ausgewählte verwalten",
-      "PurgeSelected": "Ausgewählte bereinigen",
-      "PurgeWarning": "Das Bereinigen gespeicherter Erkundung löscht FogExploration-Datensätze für die ausgewählten Szenen und Benutzer dauerhaft. Exportiere vorher eine Sicherung, falls der Richtlinienzustand wiederhergestellt werden können soll.",
-      "PurgeConfirmTitle": "Gespeicherte Nebelerkundung löschen?",
-      "PurgeSelectedConfirmBody": "Dadurch werden gespeicherte FogExploration-Datensätze aller Benutzer für {count} ausgewählte Szene(n) dauerhaft gelöscht. Fortfahren?",
-      "Scene": "Szene",
-      "SceneList": "Gefilterte Szenenliste",
-      "FogExploration": "Nebelerkundung",
-      "StatusLabel": "Richtlinienstatus",
-      "Exemption": "Ausnahme",
       "AddExemption": "Ausnahme hinzufügen",
-      "RemoveExemption": "Ausnahme entfernen",
-      "SelectScene": "Szene {name} auswählen",
-      "Unfoldered": "Ohne Ordner",
-      "Filters": "Szenenfilter",
-      "Search": "Suche",
-      "SearchPlaceholder": "Szenen durchsuchen…",
-      "SearchHelp": "Alle Begriffe müssen passen. Anführungszeichen werden unterstützt. Feldfilter: name:, folder:, status:, fog:, exempt:, id:.",
-      "ResetFilters": "Alle Filter zurücksetzen",
-      "SelectedOnly": "Nur ausgewählte",
-      "SceneFolders": "Szenenordner",
-      "FolderSearchPlaceholder": "Ordnerhierarchie filtern…",
-      "IncludeDescendants": "Unterordner einschließen",
-      "Selection": "Sammelauswahl",
-      "SelectFiltered": "Alle gefilterten auswählen",
-      "InvertFiltered": "Gefilterte Auswahl umkehren",
-      "ClearSelection": "Auswahl löschen",
+      "Audit": "Prüfung aktualisieren",
       "BackupAndTransfer": "Sicherung, Import/Export und Auswahlübertragung",
-      "ExportOptions": "Exportoptionen",
-      "TargetSelected": "Ausgewählte Szenen",
-      "TargetFiltered": "Alle gefilterten Szenen",
-      "IncludeGlobalSettings": "Weltrichtlinien-Einstellungen in Sicherung einschließen",
+      "Cancelled": "{operation} abgebrochen.",
+      "ClearSelection": "Auswahl löschen",
+      "CompactMeta": "Nebel: {fog} · {status}",
+      "Completed": "{operation} abgeschlossen.",
+      "Compliant": "Konform",
+      "CreateSafetyBackup": "Vor dem Import eine Sicherheitssicherung herunterladen",
+      "Exempt": "Ausgenommen",
+      "ExemptSelected": "Ausgewählte ausnehmen",
+      "Exemption": "Ausnahme",
       "ExportBackup": "Sicherung exportieren",
+      "ExportOptions": "Exportoptionen",
       "ExportSelection": "Auswahl exportieren",
+      "Failed": "{operation} fehlgeschlagen. Siehe Benachrichtigung und Konsolendetails.",
+      "Filters": "Szenenfilter",
+      "FogExploration": "Nebelerkundung",
+      "FolderSearchPlaceholder": "Ordnerhierarchie filtern…",
+      "FoldersVisible": "Ordnereinträge sichtbar",
+      "Help": "Dashboard-Hilfe",
+      "ImportBackup": "Sicherung importieren",
+      "ImportBackupConfirmBody": "Passend: {matched}. Nicht gefunden: {unmatched}. Mehrdeutig: {ambiguous}. Nur passende Szenen können geändert werden. Mit den gewählten Importoptionen fortfahren?",
+      "ImportBackupConfirmTitle": "Fog-Policy-Sicherung wiederherstellen?",
       "ImportBackupOptions": "Optionen für Sicherungsimport",
+      "ImportSelection": "Auswahl importieren",
+      "IncludeDescendants": "Unterordner einschließen",
+      "IncludeGlobalSettings": "Weltrichtlinien-Einstellungen in Sicherung einschließen",
+      "Intro": "Verwaltete Szenen behalten die Nebelerkundung deaktiviert, sodass Spieler nur die aktuelle Sicht statt einer dauerhaften Erinnerungskarte behalten.",
+      "InvertFiltered": "Gefilterte Auswahl umkehren",
+      "ManageSelected": "Ausgewählte verwalten",
+      "Managed": "Verwaltet",
+      "NonCompliant": "Reparatur nötig",
+      "PolicyDisabled": "Strikte Nebelerkundungsrichtlinie ist deaktiviert",
+      "PolicyEnabled": "Strikte Nebelerkundungsrichtlinie ist aktiviert",
+      "PurgeConfirmTitle": "Gespeicherte Nebelerkundung löschen?",
+      "PurgeSelected": "Ausgewählte bereinigen",
+      "PurgeSelectedConfirmBody": "Dadurch werden gespeicherte FogExploration-Datensätze aller Benutzer für {count} ausgewählte Szene(n) dauerhaft gelöscht. Fortfahren?",
+      "PurgeWarning": "Das Bereinigen gespeicherter Erkundung löscht FogExploration-Datensätze für die ausgewählten Szenen und Benutzer dauerhaft. Exportiere vorher eine Sicherung, falls der Richtlinienzustand wiederhergestellt werden können soll.",
+      "Ready": "Bereit.",
+      "RemoveExemption": "Ausnahme entfernen",
+      "RepairAll": "Alle verwalteten reparieren",
+      "RepairSelected": "Ausgewählte reparieren",
+      "ReplaceSelection": "Aktuelle Auswahl ersetzen statt ergänzen",
+      "ResetFilters": "Alle Filter zurücksetzen",
       "RestoreExemptions": "Szenenausnahmen wiederherstellen",
       "RestoreFogState": "Nebelerkundungsstatus wiederherstellen, soweit die Richtlinie dies zulässt",
       "RestoreGlobalSettings": "Enthaltene Weltrichtlinien-Einstellungen wiederherstellen",
-      "CreateSafetyBackup": "Vor dem Import eine Sicherheitssicherung herunterladen",
+      "Scene": "Szene",
+      "SceneFolders": "Szenenordner",
+      "SceneList": "Gefilterte Szenenliste",
+      "Search": "Suche",
+      "SearchHelp": "Alle Begriffe müssen passen. Anführungszeichen werden unterstützt. Feldfilter: name:, folder:, status:, fog:, exempt:, id:.",
+      "SearchPlaceholder": "Szenen durchsuchen…",
+      "SelectFiltered": "Alle gefilterten auswählen",
       "SelectImportedScenes": "Passende Szenen nach dem Import auswählen",
-      "ImportBackup": "Sicherung importieren",
-      "ImportBackupConfirmTitle": "Fog-Policy-Sicherung wiederherstellen?",
-      "ImportBackupConfirmBody": "Passend: {matched}. Nicht gefunden: {unmatched}. Mehrdeutig: {ambiguous}. Nur passende Szenen können geändert werden. Mit den gewählten Importoptionen fortfahren?",
+      "SelectScene": "Szene {name} auswählen",
+      "Selected": "Ausgewählt",
+      "SelectedOnly": "Nur ausgewählte",
+      "Selection": "Sammelauswahl",
       "SelectionTransfer": "Auswahlübertragung",
-      "ReplaceSelection": "Aktuelle Auswahl ersetzen statt ergänzen",
-      "ImportSelection": "Auswahl importieren",
-      "TransferHelp": "Auswahldateien enthalten nur Szenenidentität und Ordnerpfad; sie ändern keine Szeneneinstellungen.",
-      "Working": "{operation}…",
-      "Completed": "{operation} abgeschlossen.",
-      "Failed": "{operation} fehlgeschlagen. Siehe Benachrichtigung und Konsolendetails.",
-      "Ready": "Bereit.",
       "Status": {
         "compliant": "Konform",
-        "nonCompliant": "Reparatur nötig",
-        "exempt": "Ausgenommen"
+        "exempt": "Ausgenommen",
+        "nonCompliant": "Reparatur nötig"
       },
-      "Cancelled": "{operation} abgebrochen.",
-      "Help": "Dashboard-Hilfe",
-      "FoldersVisible": "Ordnereinträge sichtbar",
-      "CompactMeta": "Nebel: {fog} · {status}"
+      "StatusLabel": "Richtlinienstatus",
+      "TargetFiltered": "Alle gefilterten Szenen",
+      "TargetSelected": "Ausgewählte Szenen",
+      "Title": "Runyth Fog Policy",
+      "Total": "Gesamt",
+      "TransferHelp": "Auswahldateien enthalten nur Szenenidentität und Ordnerpfad; sie ändern keine Szeneneinstellungen.",
+      "Unfoldered": "Ohne Ordner",
+      "Visible": "Gefiltert",
+      "Working": "{operation}…"
+    },
+    "Help": {
+      "Actions": {
+        "Exempt": "Markiert die ausgewählten Szenen als Richtlinienausnahmen, sofern Ausnahmen aktiviert sind.",
+        "Manage": "Entfernt Ausnahmen, sodass die strikte Richtlinie wieder auf die ausgewählten Szenen angewendet wird.",
+        "Purge": "Löscht gespeicherte FogExploration-Datensätze für die ausgewählten Szenen und Benutzer dauerhaft. Dies ist destruktiv und getrennt vom bloßen Deaktivieren der Nebelerkundung.",
+        "Repair": "Deaktiviert Nebelerkundung für die ausgewählten verwalteten Szenen. Fehlgeschlagene Szenenaktualisierungen werden isoliert, damit eine fehlerhafte Szene erfolgreiche Änderungen nicht verwirft.",
+        "Title": "Sammelaktionen"
+      },
+      "Contents": "Hilfebereiche",
+      "Filters": {
+        "Body": "Alle Suchbegriffe werden mit UND verknüpft. Anführungszeichen halten mehrteilige Werte zusammen. Schnellfilter und Szenenordnerfilter werden zusätzlich zur Textsuche angewendet.",
+        "Exempt": "Ob die Szene von der Richtlinie ausgenommen ist.",
+        "Fog": "Aktivierter oder deaktivierter Nebelerkundungsstatus.",
+        "Folder": "Der vollständige hierarchische Szenenordnerpfad.",
+        "Folders": "Die Schaltfläche Szenenordner öffnet eine virtualisierte hierarchische Liste. Sie bleibt auch bei großen Ordnerbäumen performant und kann separat durchsucht werden. „Unterordner einschließen“ erweitert ausgewählte Ordner auf alle Nachkommen.",
+        "Id": "Exakte oder teilweise Szenen-ID.",
+        "Meaning": "Treffer",
+        "Name": "Szenennamen, die den Wert enthalten.",
+        "Status": "Richtlinienstatus wie konform, reparaturbedürftig/nicht konform oder ausgenommen.",
+        "Syntax": "Syntax",
+        "Title": "Suche und Filter"
+      },
+      "Heading": "Das Fog-Policy-Dashboard verwenden",
+      "Intro": "Das Dashboard ist für schnelle Sammelaktionen ausgelegt: Szenenliste eingrenzen, gewünschte Szenen auswählen und danach eine Richtlinienaktion ausführen. Suche, Schnellfilter und Ordnerhierarchie werden miteinander kombiniert.",
+      "Purge": {
+        "Body": "Eine Richtliniensicherung kann Nebelerkundungs-Einstellungen und Ausnahmen wiederherstellen, aber keine Foundry-Nebeltexturen rekonstruieren, nachdem FogExploration-Datensätze gelöscht wurden. Wenn historische Erkundungsdaten wiederhergestellt werden können sollen, ist eine echte Foundry-Welt-/Datensicherung erforderlich.",
+        "Title": "Sicherheit beim Bereinigen"
+      },
+      "Title": "Runyth Fog Policy — Dashboard-Hilfe",
+      "Transfer": {
+        "Backup": "Sicherungsdateien können Szenenrichtlinienzustand und optional Weltrichtlinien-Einstellungen enthalten.",
+        "Body": "Den Bereich Sicherung/Import-Export nur bei Bedarf aufklappen. Exportziele können die ausgewählten Szenen oder alle aktuell gefilterten Szenen sein.",
+        "CrossWorld": "Importe innerhalb derselben Welt bevorzugen Szenen-IDs. Weltübergreifend wird nur ein eindeutiger exakter Name-plus-Ordnerpfad-Treffer verwendet; mehrdeutige Szenen werden nie geraten.",
+        "Selection": "Auswahldateien enthalten nur Szenenidentität und Ordnerinformationen und ändern selbst keine Szeneneinstellungen.",
+        "Title": "Sicherung, Import/Export und Auswahlübertragung"
+      },
+      "Window": {
+        "Body": "Größe und Position des Dashboards werden als clientlokale Einstellung gespeichert. Sie werden im selben Browser/Client wiederhergestellt und an den aktuellen sichtbaren Bereich angepasst, damit ein Monitor- oder Auflösungswechsel das Fenster nicht außerhalb des Bildschirms platziert.",
+        "Title": "Fenstergröße und -position"
+      },
+      "Workflow": {
+        "Step1": "Mit Suchfeld und Schnellfiltern die Szenenliste eingrenzen.",
+        "Step2": "Szenenordner nur öffnen, wenn nach Ordnern eingegrenzt werden soll. Ausgewählte Ordner können alle Unterordner einschließen.",
+        "Step3": "Mit Alle gefilterten auswählen, Gefilterte Auswahl umkehren oder einzelnen Szenen-Checkboxen die exakte Zielmenge bilden.",
+        "Step4": "Reparieren, Ausnehmen, Verwalten, Bereinigen oder eine Sicherungs-/Import-Export-Aktion auf diese Zielmenge anwenden.",
+        "Title": "Empfohlener Ablauf"
+      }
     },
     "Notifications": {
-      "Repaired": "Runyth Fog Policy hat die Nebelerkundung für {count} Szene(n) deaktiviert.",
       "AutomaticRepair": "Runyth Fog Policy hat {count} Szene(n) automatisch repariert.",
       "AutomaticRepairFailed": "Runyth Fog Policy konnte die automatische Szenenreparatur nicht abschließen. Prüfe die Browserkonsole auf RFP-Fehlerdetails.",
-      "Purged": "{count} gespeicherte FogExploration-Datensätze in {scenes} Szene(n) gelöscht.",
-      "PurgePartial": "Die Bereinigung hat {deleted} Datensatz/Datensätze gelöscht, aber {failures} Vorgang/Vorgänge konnten nicht abgeschlossen werden. Prüfe die Konsole, bevor die Bereinigung als vollständig betrachtet wird.",
       "PartialFailure": "{operation} wurde nur teilweise abgeschlossen; {count} Szene(n) konnten nicht aktualisiert werden. Prüfe die Konsole auf isolierte Fehler.",
+      "PurgePartial": "Die Bereinigung hat {deleted} Datensatz/Datensätze gelöscht, aber {failures} Vorgang/Vorgänge konnten nicht abgeschlossen werden. Prüfe die Konsole, bevor die Bereinigung als vollständig betrachtet wird.",
+      "Purged": "{count} gespeicherte FogExploration-Datensätze in {scenes} Szene(n) gelöscht.",
+      "Repaired": "Runyth Fog Policy hat die Nebelerkundung für {count} Szene(n) deaktiviert.",
       "RestoreConflicts": "{count} Nebelerkundungswert(e) aus der Sicherung konnten nicht wiederhergestellt werden, weil die aktive strikte Richtlinie sie sofort verbieten würde. Diese Szenen bleiben richtlinienkonform.",
       "RestoreFailed": "{count} Szenenaktualisierung(en) aus der Sicherung schlugen nach Fehlerisolierung fehl. Prüfe die Konsole für Details.",
       "SelectionImported": "Auswahlimport: {matched} passende Szene(n), {unmatched} nicht gefunden, {ambiguous} mehrdeutig.",
       "WindowStateSaveFailed": "Position oder Größe des Dashboards konnten auf diesem Client nicht gespeichert werden. Die Richtliniendaten sind nicht betroffen; Details stehen in der Browserkonsole unter RFP-UI-POSITION-SAVE."
     },
-    "Help": {
-      "Title": "Runyth Fog Policy — Dashboard-Hilfe",
-      "Heading": "Das Fog-Policy-Dashboard verwenden",
-      "Intro": "Das Dashboard ist für schnelle Sammelaktionen ausgelegt: Szenenliste eingrenzen, gewünschte Szenen auswählen und danach eine Richtlinienaktion ausführen. Suche, Schnellfilter und Ordnerhierarchie werden miteinander kombiniert.",
-      "Contents": "Hilfebereiche",
-      "Workflow": {
-        "Title": "Empfohlener Ablauf",
-        "Step1": "Mit Suchfeld und Schnellfiltern die Szenenliste eingrenzen.",
-        "Step2": "Szenenordner nur öffnen, wenn nach Ordnern eingegrenzt werden soll. Ausgewählte Ordner können alle Unterordner einschließen.",
-        "Step3": "Mit Alle gefilterten auswählen, Gefilterte Auswahl umkehren oder einzelnen Szenen-Checkboxen die exakte Zielmenge bilden.",
-        "Step4": "Reparieren, Ausnehmen, Verwalten, Bereinigen oder eine Sicherungs-/Import-Export-Aktion auf diese Zielmenge anwenden."
+    "Settings": {
+      "AllowExemptions": {
+        "Hint": "Erlaubt dem Dashboard, ausgewählte Weltszenen von der strikten Richtlinie auszunehmen.",
+        "Name": "Ausnahmen pro Szene erlauben"
       },
-      "Filters": {
-        "Title": "Suche und Filter",
-        "Body": "Alle Suchbegriffe werden mit UND verknüpft. Anführungszeichen halten mehrteilige Werte zusammen. Schnellfilter und Szenenordnerfilter werden zusätzlich zur Textsuche angewendet.",
-        "Syntax": "Syntax",
-        "Meaning": "Treffer",
-        "Name": "Szenennamen, die den Wert enthalten.",
-        "Folder": "Der vollständige hierarchische Szenenordnerpfad.",
-        "Status": "Richtlinienstatus wie konform, reparaturbedürftig/nicht konform oder ausgenommen.",
-        "Fog": "Aktivierter oder deaktivierter Nebelerkundungsstatus.",
-        "Exempt": "Ob die Szene von der Richtlinie ausgenommen ist.",
-        "Id": "Exakte oder teilweise Szenen-ID.",
-        "Folders": "Die Schaltfläche Szenenordner öffnet eine virtualisierte hierarchische Liste. Sie bleibt auch bei großen Ordnerbäumen performant und kann separat durchsucht werden. „Unterordner einschließen“ erweitert ausgewählte Ordner auf alle Nachkommen."
+      "Dashboard": {
+        "Hint": "Szenen prüfen, filtern, gesammelt auswählen, reparieren, sichern, wiederherstellen, ausnehmen und gespeicherte Nebelerkundung löschen.",
+        "Label": "Nebelerkundungs-Dashboard öffnen",
+        "Name": "Nebelerkundungs-Dashboard"
       },
-      "Actions": {
-        "Title": "Sammelaktionen",
-        "Repair": "Deaktiviert Nebelerkundung für die ausgewählten verwalteten Szenen. Fehlgeschlagene Szenenaktualisierungen werden isoliert, damit eine fehlerhafte Szene erfolgreiche Änderungen nicht verwirft.",
-        "Exempt": "Markiert die ausgewählten Szenen als Richtlinienausnahmen, sofern Ausnahmen aktiviert sind.",
-        "Manage": "Entfernt Ausnahmen, sodass die strikte Richtlinie wieder auf die ausgewählten Szenen angewendet wird.",
-        "Purge": "Löscht gespeicherte FogExploration-Datensätze für die ausgewählten Szenen und Benutzer dauerhaft. Dies ist destruktiv und getrennt vom bloßen Deaktivieren der Nebelerkundung."
+      "Enabled": {
+        "Hint": "Wenn aktiviert, müssen verwaltete Weltszenen die Nebelerkundung deaktiviert haben.",
+        "Name": "Strikte Nebelerkundungsrichtlinie aktivieren"
       },
-      "Transfer": {
-        "Title": "Sicherung, Import/Export und Auswahlübertragung",
-        "Body": "Den Bereich Sicherung/Import-Export nur bei Bedarf aufklappen. Exportziele können die ausgewählten Szenen oder alle aktuell gefilterten Szenen sein.",
-        "Backup": "Sicherungsdateien können Szenenrichtlinienzustand und optional Weltrichtlinien-Einstellungen enthalten.",
-        "Selection": "Auswahldateien enthalten nur Szenenidentität und Ordnerinformationen und ändern selbst keine Szeneneinstellungen.",
-        "CrossWorld": "Importe innerhalb derselben Welt bevorzugen Szenen-IDs. Weltübergreifend wird nur ein eindeutiger exakter Name-plus-Ordnerpfad-Treffer verwendet; mehrdeutige Szenen werden nie geraten."
+      "EnforceCreates": {
+        "Hint": "Neue Weltszenen werden mit deaktivierter Nebelerkundung gespeichert, einschließlich aus Kompendien importierter Szenen.",
+        "Name": "Bei neu erstellten und importierten Szenen erzwingen"
       },
-      "Purge": {
-        "Title": "Sicherheit beim Bereinigen",
-        "Body": "Eine Richtliniensicherung kann Nebelerkundungs-Einstellungen und Ausnahmen wiederherstellen, aber keine Foundry-Nebeltexturen rekonstruieren, nachdem FogExploration-Datensätze gelöscht wurden. Wenn historische Erkundungsdaten wiederhergestellt werden können sollen, ist eine echte Foundry-Welt-/Datensicherung erforderlich."
+      "EnforceUpdates": {
+        "Hint": "Versuche, die Nebelerkundung für eine verwaltete Szene zu aktivieren, werden vor dem Speichern korrigiert.",
+        "Name": "Erneutes Aktivieren der Nebelerkundung verhindern"
       },
-      "Window": {
-        "Title": "Fenstergröße und -position",
-        "Body": "Größe und Position des Dashboards werden als clientlokale Einstellung gespeichert. Sie werden im selben Browser/Client wiederhergestellt und an den aktuellen sichtbaren Bereich angepasst, damit ein Monitor- oder Auflösungswechsel das Fenster nicht außerhalb des Bildschirms platziert."
+      "NotifyAutomaticRepair": {
+        "Hint": "Zeigt eine SL-Benachrichtigung, wenn dieser Client als aktiver SL beim Start Szenen repariert.",
+        "Name": "Nach automatischer Reparatur benachrichtigen"
+      },
+      "RepairOnReady": {
+        "Hint": "Der aktive SL führt nach dem Weltstart eine idempotente, gebündelte Reparatur durch.",
+        "Name": "Vorhandene Szenen beim Laden der Welt reparieren"
       }
     }
   }
